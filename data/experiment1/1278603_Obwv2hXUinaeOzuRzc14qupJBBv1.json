@@ -1,0 +1,101 @@
+{
+    "Instructions_Quiz3": {
+        "rt": 2231,
+        "response": "{\"Q0\":[\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/car2.png' alt='' class='card'/>KEY</div>\",\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/car1.jpg' alt='' class='card'/>LUGGAGE</div>\"]}"
+    },
+    "subjectID": 1278603,
+    "Instructions1": {
+        "rt": 6631,
+        "view_history": "[{\"page_index\":0,\"viewing_time\":866},{\"page_index\":1,\"viewing_time\":486},{\"page_index\":2,\"viewing_time\":1055},{\"page_index\":3,\"viewing_time\":713},{\"page_index\":4,\"viewing_time\":975},{\"page_index\":5,\"viewing_time\":619},{\"page_index\":6,\"viewing_time\":643},{\"page_index\":7,\"viewing_time\":1273}]"
+    },
+    "date_start": "2023-04-28T16:39:29.560000+00:00",
+    "sessionID": 1,
+    "Instructions2": {
+        "rt": 23997,
+        "view_history": "[{\"page_index\":0,\"viewing_time\":2209},{\"page_index\":1,\"viewing_time\":1623},{\"page_index\":0,\"viewing_time\":2570},{\"page_index\":1,\"viewing_time\":2976},{\"page_index\":2,\"viewing_time\":1893},{\"page_index\":3,\"viewing_time\":2182},{\"page_index\":4,\"viewing_time\":3573},{\"page_index\":5,\"viewing_time\":2228},{\"page_index\":6,\"viewing_time\":2984},{\"page_index\":7,\"viewing_time\":1759}]"
+    },
+    "time_start": 0,
+    "Instructions_Quiz2": {
+        "rt": 3308,
+        "response": "{\"Q0\":\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/hat2.jpeg' alt='' class='card'/>WARDROBE</div>\"}"
+    },
+    "date": "4/28/2023",
+    "Instructions3": {
+        "rt": 16907,
+        "view_history": "[{\"page_index\":0,\"viewing_time\":2281},{\"page_index\":1,\"viewing_time\":652},{\"page_index\":2,\"viewing_time\":1389},{\"page_index\":1,\"viewing_time\":1715},{\"page_index\":2,\"viewing_time\":6513},{\"page_index\":3,\"viewing_time\":1195},{\"page_index\":4,\"viewing_time\":766},{\"page_index\":5,\"viewing_time\":1657},{\"page_index\":6,\"viewing_time\":738}]"
+    },
+    "time": "9:39:31 AM",
+    "Instructions_Quiz4": {
+        "rt": 2407,
+        "response": "{\"Q0\":\"By collecting 7 tokens of the same kind\"}"
+    },
+    "Instructions4": {
+        "rt": 956,
+        "view_history": "[{\"page_index\":0,\"viewing_time\":955}]"
+    },
+    "Instructions_Quiz1": {
+        "rt": 5516,
+        "response": "{\"Q0\":[\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/cat1.png' alt='' class='card'/>BASKET</div>\",\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/cat2.png' alt='' class='card'/>MAT</div>\"]}"
+    },
+    "GoalSwitching": {
+        "0": {
+            "trial_1": {
+                "37": "B2",
+                "cardflip_rt": 626,
+                "38": "C2",
+                "P": 0.6,
+                "slots": {
+                    "p": 0,
+                    "b": 1,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C": 0.4,
+                "B": 0.4,
+                "cardselect": "B2",
+                "cardflip": "B2",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "condition": "u"
+            },
+            "trial_0": {
+                "37": "B1",
+                "cardflip_rt": 1138,
+                "38": "P1",
+                "P": 0.6,
+                "slots": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C": 0.4,
+                "B": 0.4,
+                "cardselect": "P1",
+                "cardflip": "P1",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "condition": "u"
+            }
+        }
+    },
+    "studyID": 1,
+    "consent": {
+        "no_box": false,
+        "yes_box": true
+    }
+}
