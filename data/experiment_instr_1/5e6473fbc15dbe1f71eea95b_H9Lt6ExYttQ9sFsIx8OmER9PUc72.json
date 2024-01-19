@@ -1,0 +1,33 @@
+{
+    "time_start": 0,
+    "Instructions_Quiz2": {
+        "rt": 3118,
+        "response": "{\"Q0\":\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/hat2.jpeg' alt='' class='card'/>WARDROBE</div>\"}"
+    },
+    "date": "16/03/2023",
+    "time": "21:06:26",
+    "Instructions_Quiz3": {
+        "rt": 2976.5,
+        "response": "{\"Q0\":[\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/car2.png' alt='' class='card'/>KEY</div>\",\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/car1.jpg' alt='' class='card'/>LUGGAGE</div>\"]}"
+    },
+    "subjectID": "5e6473fbc15dbe1f71eea95b",
+    "Instructions1": {
+        "rt": 16934.299999999814,
+        "view_history": "[{\"page_index\":0,\"viewing_time\":4699.899999999907},{\"page_index\":1,\"viewing_time\":3043.399999999907},{\"page_index\":2,\"viewing_time\":3030},{\"page_index\":3,\"viewing_time\":2000.7999999998137},{\"page_index\":4,\"viewing_time\":1736.4000000003725},{\"page_index\":5,\"viewing_time\":655.7999999998137},{\"page_index\":6,\"viewing_time\":530.2000000001863},{\"page_index\":7,\"viewing_time\":1236.8999999999069}]"
+    },
+    "Instructions_Quiz1": {
+        "rt": 4696.700000000186,
+        "response": "{\"Q0\":[\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/cat1.png' alt='' class='card'/>BASKET</div>\",\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/cat2.png' alt='' class='card'/>MAT</div>\"]}"
+    },
+    "Instructions_Quiz4": {
+        "rt": 3820,
+        "response": "{\"Q0\":\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/hat.png' alt='' class='token'/>HAT</div>\"}"
+    },
+    "studyID": "6410f1a2630ee8762a725350",
+    "consent": {
+        "no_box": false,
+        "yes_box": true
+    },
+    "date_start": "2023-03-17T01:06:19.963000+00:00",
+    "sessionID": "6413bd034a9c15efe7c16de7"
+}
