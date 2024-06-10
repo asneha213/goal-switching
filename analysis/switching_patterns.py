@@ -82,7 +82,7 @@ def get_switches_from_max_prob_max_slot(experiment, behavior=True, model_name=No
     return no_reward_rates, reward_rates
 
 
-def plot_stay_switch_rates(axs=None, model_name=None, experiments=[1, 2], show=False):
+def plot_stay_switch_rates(axs=None, model_name=None, experiments=[1, 2], show=False, cache=False):
     #
     if not axs:
         fig = plt.figure(figsize=(10, 5))
@@ -93,12 +93,24 @@ def plot_stay_switch_rates(axs=None, model_name=None, experiments=[1, 2], show=F
     experiment = experiments[0]
 
     if model_name is None:
-        no_reward_rates, reward_rates = get_switches_from_max_prob_max_slot(experiment=experiment, behavior=True)
+        if not cache:
+            no_reward_rates, reward_rates = get_switches_from_max_prob_max_slot(experiment=experiment, behavior=True)
+            np.save("figures_cache/no_reward_rates_exp1.npy", no_reward_rates)
+            np.save("figures_cache/reward_rates_exp1.npy", reward_rates)
+        else:
+            no_reward_rates = np.load("figures_cache/no_reward_rates_exp1.npy")
+            reward_rates = np.load("figures_cache/reward_rates_exp1.npy")
     else:
-        no_reward_rates, reward_rates = get_switches_from_max_prob_max_slot(experiment=experiment, behavior=False, model_name=model_name)
+        if not cache:
+            no_reward_rates, reward_rates = get_switches_from_max_prob_max_slot(experiment=experiment, behavior=False, model_name=model_name)
+            np.save("figures_cache/no_reward_rates_exp1.npy", no_reward_rates)
+            np.save("figures_cache/reward_rates_exp1.npy", reward_rates)
+        else:
+            no_reward_rates = np.load("figures_cache/no_reward_rates_exp1.npy")
+            reward_rates = np.load("figures_cache/reward_rates_exp1.npy")
 
     conditions = ['80-20', '70-30', '60-40', '80-20', '70-30', '60-40']
-    models = ['No Reward', 'Reward']
+    models = ['no reward', 'reward']
     title = "Experiment 1"
     ylabel = "Probability of Switching"
     ylim = [0, 0.53]
@@ -109,13 +121,13 @@ def plot_stay_switch_rates(axs=None, model_name=None, experiments=[1, 2], show=F
 
     title_box_props = dict(boxstyle='round,pad=0.3', facecolor='lightgray', alpha=0.5)
 
-    axs[0].annotate("RETROSPECTIVE ACTION", xy=(0.25, -0.12), xycoords='axes fraction',
-                    fontsize=8, ha='center')
-    axs[0].annotate("PROSPECTIVE ACTION", xy=(0.75, -0.12), xycoords='axes fraction',
-                    fontsize=8, ha='center')
+    axs[0].annotate("retrospective token", xy=(0.25, -0.28), xycoords='axes fraction',
+                    fontsize=10, ha='center')
+    axs[0].annotate("prospective token", xy=(0.75, -0.28), xycoords='axes fraction',
+                    fontsize=10, ha='center')
 
-    axs[0].axvspan(-0.3, 2.9, facecolor='green', alpha=0.3)
-    axs[0].axvspan(2.9, 6.2, facecolor='orange', alpha=0.3)
+    # axs[0].axvspan(-0.3, 2.9, facecolor='green', alpha=0.3)
+    # axs[0].axvspan(2.9, 6.2, facecolor='orange', alpha=0.3)
 
     x_pos = [0, 1, 2, 3.5, 4.5, 5.5]
 
@@ -146,35 +158,35 @@ def plot_stay_switch_rates(axs=None, model_name=None, experiments=[1, 2], show=F
         p_values_nr = ['ns', '*', '***']
         p_values_r = ['ns', '*', '**']
 
-        axs[0].plot([0, 3.5], [0.28, 0.28], color='black')
+        axs[0].plot([0, 3.5], [0.26, 0.26], color='black')
         significance_str = p_values_nr[0]
-        axs[0].text(1.6, 0.28, f'{significance_str}', ha='center', va='bottom',
-                fontsize=11)
+        axs[0].text(1.6, 0.26, f'{significance_str}', ha='center', va='bottom',
+                fontsize=8)
 
-        axs[0].plot([0.25, 3.75], [0.3, 0.3], color='black')
+        axs[0].plot([0.25, 3.75], [0.29, 0.29], color='black')
         significance_str = p_values_r[0]
-        axs[0].text(1.65, 0.3, f'{significance_str}', ha='center', va='bottom',
-                    fontsize=11)
+        axs[0].text(1.65, 0.29, f'{significance_str}', ha='center', va='bottom',
+                    fontsize=8)
 
 
-        axs[0].plot([1, 4.5], [0.35, 0.35], color='black')
+        axs[0].plot([1, 4.5], [0.32, 0.32], color='black')
         significance_str = p_values_nr[1]
-        axs[0].text(2.25, 0.35, f'{significance_str}', ha='center', va='bottom',
-                    fontsize=11)
-        axs[0].plot([1.25, 4.75], [0.37, 0.37], color='black')
+        axs[0].text(2.25, 0.32, f'{significance_str}', ha='center', va='bottom',
+                    fontsize=8)
+        axs[0].plot([1.25, 4.75], [0.35, 0.35], color='black')
         significance_str = p_values_r[1]
-        axs[0].text(2.5, 0.37, f'{significance_str}', ha='center', va='bottom',
-                    fontsize=11)
+        axs[0].text(2.5, 0.35, f'{significance_str}', ha='center', va='bottom',
+                    fontsize=8)
 
 
         axs[0].plot([2, 5.5], [0.40, 0.40], color='black')
         significance_str = p_values_nr[2]
         axs[0].text(3, 0.40, f'{significance_str}', ha='center', va='bottom',
-                    fontsize=11)
-        axs[0].plot([2.25, 5.75], [0.42, 0.42], color='black')
+                    fontsize=8)
+        axs[0].plot([2.25, 5.75], [0.44, 0.44], color='black')
         significance_str = p_values_r[2]
-        axs[0].text(3.2, 0.42, f'{significance_str}', ha='center', va='bottom',
-                    fontsize=11)
+        axs[0].text(3.2, 0.44, f'{significance_str}', ha='center', va='bottom',
+                    fontsize=8)
 
 
     plot_comparative_bar_plot(axs[0], data, mean_values, std_dev_values, conditions, models, title, ylabel, ylim,
@@ -195,17 +207,17 @@ def plot_stay_switch_rates(axs=None, model_name=None, experiments=[1, 2], show=F
     conditions = ['75-25', '55-45', '75-25', '55-45']
     models = ['No Reward', 'Reward']
     title = "Experiment 2"
-    ylabel = "Probability of Switching"
+    ylabel = None
     ylim = [0, 0.53]
 
-    axs[1].axvspan(-0.3, 1.9, facecolor='green', alpha=0.3)
-    axs[1].axvspan(1.9, 4.2, facecolor='orange', alpha=0.3)
+    # axs[1].axvspan(-0.3, 1.9, facecolor='green', alpha=0.3)
+    # axs[1].axvspan(1.9, 4.2, facecolor='orange', alpha=0.3)
     # Add title boxes to each subplot
 
-    axs[1].annotate("RETROSPECTIVE ACTION", xy=(0.25, -0.12), xycoords='axes fraction',
-                fontsize=8, ha='center')
-    axs[1].annotate("PROSPECTIVE ACTION", xy=(0.75, -0.12), xycoords='axes fraction',
-                    fontsize=8, ha='center')
+    axs[1].annotate("retrospective token", xy=(0.25, -0.28), xycoords='axes fraction',
+                fontsize=10, ha='center')
+    axs[1].annotate("prospective token", xy=(0.75, -0.28), xycoords='axes fraction',
+                    fontsize=10, ha='center')
 
     p_val_75_25_nr = pg.ttest(no_reward_rates[:, 0], no_reward_rates[:, 2], paired=True)['p-val']
     p_val_55_45_nr = pg.ttest(no_reward_rates[:, 1], no_reward_rates[:, 3], paired=True)['p-val']
@@ -229,17 +241,17 @@ def plot_stay_switch_rates(axs=None, model_name=None, experiments=[1, 2], show=F
     print("Mean switching rate: ", mean_of_mean)
 
     if show:
-        p_values_nr = ['*', '****']
-        p_values_r = ['*', '****']
+        p_values_nr = ['*', '***']
+        p_values_r = ['*', '***']
 
-        axs[1].plot([0, 2.5], [0.35, 0.35], color='black')
+        axs[1].plot([0, 2.5], [0.32, 0.32], color='black')
         significance_str = p_values_nr[0]
-        axs[1].text(1.6, 0.35, f'{significance_str}', ha='center', va='bottom',
+        axs[1].text(1.6, 0.31, f'{significance_str}', ha='center', va='bottom',
                     fontsize=11)
 
-        axs[1].plot([0.25, 2.75], [0.37, 0.37], color='black')
+        axs[1].plot([0.25, 2.75], [0.35, 0.35], color='black')
         significance_str = p_values_r[0]
-        axs[1].text(1.65, 0.37, f'{significance_str}', ha='center', va='bottom',
+        axs[1].text(1.65, 0.34, f'{significance_str}', ha='center', va='bottom',
                     fontsize=11)
 
         axs[1].plot([1, 3.5], [0.4, 0.4], color='black')
@@ -255,21 +267,21 @@ def plot_stay_switch_rates(axs=None, model_name=None, experiments=[1, 2], show=F
 
     x_pos = [0, 1, 2.5, 3.5]
     plot_comparative_bar_plot(axs[1], data, mean_values, std_dev_values, conditions, models, title, ylabel, ylim,
-                              bar_width=0.3, x_pos=x_pos, draw_data=False)
+                              bar_width=0.3, x_pos=x_pos, draw_data=False, legend=False)
 
 
-    if show:
-        plt.tight_layout()
-        plt.show()
+    # if show:
+    #     plt.tight_layout()
+    #     plt.show()
 
 
-def compare_behavior_model(model_name):
-    fig = plt.figure(figsize=(17, 15))
-    gs = GridSpec(3, 2, width_ratios=[1.35, 1], height_ratios=[1, 0.1, 1])  # Set the height ratios for the subplots
-    axs = [plt.subplot(gs[0]), plt.subplot(gs[1]), plt.subplot(gs[4]), plt.subplot(gs[5])]
+def compare_behavior_model(model_name, cache=False):
+    fig = plt.figure(figsize=(11, 6))
+    gs = GridSpec(1, 2, width_ratios=[1.35, 1])  # Set the height ratios for the subplots
+    axs = [plt.subplot(gs[0]), plt.subplot(gs[1])]
 
-    plot_stay_switch_rates([axs[0], axs[1]], model_name=None)
-    #plot_stay_switch_rates([axs[2], axs[3]], model_name=model_name)
+    #plot_stay_switch_rates([axs[0], axs[1]], model_name=None, show=True)
+    plot_stay_switch_rates([axs[0], axs[1]], model_name=model_name, show=True, cache=cache)
 
     # Add labels "A" and "B" at the top of the subplots
     axs[0].annotate("BEHAVIOR", xy=(-0.2, 0.35), xycoords='axes fraction', fontsize=15, weight='bold', rotation=90)
@@ -314,7 +326,9 @@ def compare_behavior_model_all(seed=100):
 
 if __name__ == "__main__":
 
-    compare_behavior_model_all()
+    #compare_behavior_model_all()
+    model_name = None
+    compare_behavior_model(model_name=model_name, cache=False)
 
 
 

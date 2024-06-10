@@ -6,6 +6,12 @@ from optimize_model import ModelOptimizer
 from matplotlib import pyplot as plt
 from matplotlib.gridspec import GridSpec
 
+import matplotlib
+
+# Setting font properties globally
+# matplotlib.rcParams['font.weight'] = 'bold'
+# matplotlib.rcParams['font.family'] = 'sans-serif'
+
 import pickle
 
 
@@ -38,19 +44,38 @@ def get_retro_measure_simulation(experiment, model_name, measure_name, optimal=F
     return np.array(sub_measures)
 
 
-def plot_retro_bias_per_condition(experiment, ax, model_name=None, compare=False):
 
-    if model_name is None:
-        sub_retro_bias = get_measure_experiment(experiment=experiment, measure_name="retro_value", \
-                                            mode="mean_condition")
+
+
+def plot_retro_bias_per_condition(experiment, ax, model_name=None, compare=False, cache=False):
+
+    if cache:
+        if model_name is None:
+            sub_retro_bias = np.load("figures_cache/retro_bias_" + str(experiment) + "_behavior" + ".npy")
+        else:
+            sub_retro_bias = np.load("figures_cache/retro_bias_" + str(experiment) + "_" + model_name + ".npy")
     else:
-        sub_retro_bias = get_retro_measure_simulation(experiment=experiment, model_name=model_name, measure_name="retro_value")
+        if model_name is None:
+            sub_retro_bias = get_measure_experiment(experiment=experiment, measure_name="retro_value", \
+                                                mode="mean_condition")
+            np.save("figures_cache/retro_bias_" + str(experiment) + "_behavior.npy", sub_retro_bias)
+        else:
+            sub_retro_bias = get_retro_measure_simulation(experiment=experiment, model_name=model_name, measure_name="retro_value")
+            np.save("figures_cache/retro_bias_" + str(experiment) + "_" + model_name + ".npy", sub_retro_bias)
 
     if compare:
-        pros_retro_bias = ModelOptimizer(experiment=experiment, model_name="prospective").simulate_params(
-            measure_name="retro_value")
-        retro_retro_bias = ModelOptimizer(experiment=experiment, model_name="retrospective").simulate_params(
-            measure_name="retro_value")
+        if cache:
+            pros_retro_bias = np.load("figures_cache/retro_bias_" + str(experiment) + "_prospective_optimal" + ".npy")
+            retro_retro_bias = np.load("figures_cache/retro_bias_" + str(experiment) + "_retrospective_optimal" + ".npy")
+
+        else:
+            pros_retro_bias = ModelOptimizer(experiment=experiment, model_name="prospective").simulate_params(
+                measure_name="retro_value")
+            retro_retro_bias = ModelOptimizer(experiment=experiment, model_name="retrospective").simulate_params(
+                measure_name="retro_value")
+            np.save("figures_cache/retro_bias_" + str(experiment) + "_prospective_optimal", pros_retro_bias)
+            np.save("figures_cache/retro_bias_" + str(experiment) + "_retrospective_optimal", retro_retro_bias)
+
         data = [pros_retro_bias, sub_retro_bias, retro_retro_bias]
     else:
         data = [sub_retro_bias]
@@ -58,6 +83,8 @@ def plot_retro_bias_per_condition(experiment, ax, model_name=None, compare=False
     if (experiment == 1) or (experiment == "instr_1"):
         conditions = ["80-20", "70-30", "60-40"]
     elif experiment == 2:
+        conditions = ["75-25", "55-45"]
+    elif experiment == 'bandit':
         conditions = ["75-25", "55-45"]
 
     if compare:
@@ -80,20 +107,31 @@ def plot_retro_bias_per_condition(experiment, ax, model_name=None, compare=False
         models = ["Prospective"]
     elif model_name == "hybrid":
         models = ["Hybrid"]
+    elif model_name == "rescorla":
+        models = ["Rescorla"]
 
     if (experiment == 1) or (experiment == "instr_1"):
         title = "Experiment 1"
     elif experiment == 2:
         title = "Experiment 2"
-    ylabel = "Retrospectively biased choice"
+    else:
+        title = None
+
+    if experiment == 1:
+        ylabel = "Retrospectively biased choice"
+    elif experiment == 2:
+        ylabel = None
     ylim = [0, 1]
 
     if compare:
-        legend = True
+        if experiment == 1:
+            legend = True
+        else:
+            legend = False
     else:
         legend = False
     plot_comparative_bar_plot(ax, data, mean_values, std_dev_values, conditions, models, title, ylabel, ylim,
-                              bar_width=0.18, legend=legend)
+                              bar_width=0.13, legend=legend)
 
 
 def plot_retro_bias_per_condition_instructions(ax):
@@ -119,12 +157,24 @@ def plot_retro_bias_per_condition_instructions(ax):
                                 bar_width=0.18, legend=legend)
 
 
-def plot_retro_bias_relation_to_progress_difference(experiment, ax, model_name=None):
-    if model_name is None:
-        sub_retro_count = get_measure_experiment(experiment=experiment, measure_name="retro_value_count", \
-                                             mode="measure")
+def plot_retro_bias_relation_to_progress_difference(experiment, ax, model_name=None, cache=False):
+    if cache:
+        if model_name is None:
+            sub_retro_count = np.load("figures_cache/retro_value_count_" + str(experiment) + "_behavior" + ".npy")
+        else:
+            sub_retro_count = np.load("figures_cache/retro_value_count_" + str(experiment) + "_" + model_name + ".npy")
     else:
-        sub_retro_count = get_retro_measure_simulation(experiment=experiment, model_name=model_name, measure_name="retro_value_count")
+        if model_name is None:
+            sub_retro_count = get_measure_experiment(experiment=experiment, measure_name="retro_value_count", \
+                                                 mode="measure")
+            np.save("figures_cache/retro_value_count_" + str(experiment) + "_behavior.npy", sub_retro_count)
+        else:
+            sub_retro_count = get_retro_measure_simulation(experiment=experiment, model_name=model_name, measure_name="retro_value_count")
+            np.save("figures_cache/retro_value_count_" + str(experiment) + "_" + model_name + ".npy", sub_retro_count)
+
+
+
+
     m0 = sub_retro_count[:, 0, :]
     m1 = sub_retro_count[:, 1, :]
     if (experiment == 1) or (experiment == "instr_1"):
@@ -150,20 +200,20 @@ def plot_retro_bias_relation_to_progress_difference(experiment, ax, model_name=N
         ax.plot(range(7), mean_m2, label="60-40-40", color="green")
         ax.errorbar(x=range(7), y=mean_m2, yerr=stderr_m2, fmt='o', capsize=5, color="green")
 
-    elif experiment == 2:
+    elif (experiment == 2) or (experiment == 'bandit'):
         ax.plot(range(7), mean_m0, label="75-25-25", color="red")
         ax.errorbar(x=range(7), y=mean_m0, yerr=stderr_m0, fmt='o', capsize=5, color="red")
 
         ax.plot(range(7), mean_m1, label="55-45-45", color="blue")
         ax.errorbar(x=range(7), y=mean_m1, yerr=stderr_m1, fmt='o', capsize=5, color="blue")
 
-    ax.legend(fontsize=11)
-    ax.set_xlabel("progress: retrospective - prospective", fontsize=10)
+    ax.legend(fontsize=8, loc='lower right')
+    ax.set_xlabel("progress: retrospective - prospective", fontsize=9)
     ylim = [0, 1]
     ax.set_ylim(ylim)
 
 
-def plot_retrospective_bias(model_name=None, axs=None, print=True):
+def plot_retrospective_bias(model_name=None, axs=None, print=True, cache=False):
 
     if axs is None:
         fig = plt.figure(figsize=(14, 5))
@@ -184,42 +234,46 @@ def plot_retrospective_bias(model_name=None, axs=None, print=True):
 
     ## Plot retro bias comparison between behavior and model
 
-    ax1.annotate("1", xy=(0.5, -0.22), xycoords='axes fraction', fontsize=15, weight='bold')
-    ax2.annotate("2", xy=(0.5, -0.22), xycoords='axes fraction', fontsize=15, weight='bold')
-    ax3.annotate("3", xy=(0.5, -0.22), xycoords='axes fraction', fontsize=15, weight='bold')
-    ax4.annotate("4", xy=(0.5, -0.22), xycoords='axes fraction', fontsize=15, weight='bold')
+    # ax1.annotate("1", xy=(0.5, -0.22), xycoords='axes fraction', fontsize=15, weight='bold')
+    # ax2.annotate("2", xy=(0.5, -0.22), xycoords='axes fraction', fontsize=15, weight='bold')
+    # ax3.annotate("3", xy=(0.5, -0.22), xycoords='axes fraction', fontsize=15, weight='bold')
+    # ax4.annotate("4", xy=(0.5, -0.22), xycoords='axes fraction', fontsize=15, weight='bold')
 
     experiment = 1
 
-    plot_retro_bias_per_condition(experiment=experiment, ax=ax1, model_name=model_name)
-    plot_retro_bias_relation_to_progress_difference(experiment=experiment, ax=ax2, model_name=model_name)
+    plot_retro_bias_per_condition(experiment=experiment, ax=ax1, model_name=model_name, cache=cache)
+    plot_retro_bias_relation_to_progress_difference(experiment=experiment, ax=ax2, model_name=model_name, cache=cache)
 
     # Experiment 2
 
-    plot_retro_bias_per_condition(experiment=2, ax=ax3, model_name=model_name)
-    plot_retro_bias_relation_to_progress_difference(experiment=2, ax=ax4, model_name=model_name)
+    plot_retro_bias_per_condition(experiment=2, ax=ax3, model_name=model_name, cache=cache)
+    plot_retro_bias_relation_to_progress_difference(experiment=2, ax=ax4, model_name=model_name, cache=cache)
 
     if print:
         plt.tight_layout()
         plt.show()
 
 
-def plot_retro_bias_compare_prospective_retrospective(model_name=None):
-    fig = plt.figure(figsize=(14, 5))
-    gs = GridSpec(1, 3, width_ratios=[1, 0.1, 0.7])  # Set the height ratios for the subplots
+def plot_retro_bias_compare_prospective_retrospective(axs=None, model_name=None, cache=False):
 
-    ax1 = plt.subplot(gs[0, 0])
-    ax2 = plt.subplot(gs[0, 2], sharey=ax1)
+    if axs is None:
+        fig = plt.figure(figsize=(14, 5))
+        gs = GridSpec(1, 3, width_ratios=[1, 0.1, 0.7])  # Set the height ratios for the subplots
 
-    ax1.annotate("1", xy=(0.5, -0.22), xycoords='axes fraction', fontsize=15, weight='bold')
-    ax2.annotate("2", xy=(0.5, -0.22), xycoords='axes fraction', fontsize=15, weight='bold')
+        ax1 = plt.subplot(gs[0, 0])
+        ax2 = plt.subplot(gs[0, 2], sharey=ax1)
+    else:
 
-    plot_retro_bias_per_condition(experiment=1, ax=ax1, model_name=model_name, compare=True)
+        ax1 = axs[0]
+        ax2 = axs[1]
 
-    plot_retro_bias_per_condition(experiment=2, ax=ax2, model_name=model_name, compare=True)
+    plot_retro_bias_per_condition(experiment=1, ax=ax1, model_name=model_name, compare=True, cache=cache)
 
-    plt.tight_layout()
-    plt.show()
+    plot_retro_bias_per_condition(experiment=2, ax=ax2, model_name=model_name, compare=True, cache=cache)
+
+    if axs is None:
+        plt.tight_layout()
+        plt.show()
 
 
 def compare_behavior_model(seed):
@@ -292,7 +346,8 @@ def compare_behavior_model(seed):
     plt.savefig("retro_bias_" + str(seed) + ".png")
 
 
-def plot_retro_bias_progress_instructions():
+def plot_retro_bias_progress_instructions(axs):
+
     pros_retro_bias_1 = ModelOptimizer(experiment=1, model_name="prospective").simulate_params(
         measure_name="retro_value_count")
 
@@ -315,12 +370,16 @@ def plot_retro_bias_progress_instructions():
     retro_std_instr = np.nanstd(sub_retro_mean_instr, axis=0) / np.sqrt(len(sub_retro_mean_instr))
 
 
-    fig = plt.figure(figsize=(9, 5))
-    gs = GridSpec(1, 2, width_ratios=[1, 0.8])  # Set the height ratios for the subplots
+    if axs is None:
+        fig = plt.figure(figsize=(9, 5))
+        gs = GridSpec(1, 2, width_ratios=[1, 0.8])  # Set the height ratios for the subplots
 
-    ax2 = plt.subplot(gs[0, 0])
+        ax2 = plt.subplot(gs[0, 0])
 
-    ax1 = plt.subplot(gs[0, 1], sharey=ax2)
+        ax1 = plt.subplot(gs[0, 1], sharey=ax2)
+    else:
+        ax1 = axs[0]
+        ax2 = axs[1]
 
     ax1.plot(pros_retro_mean_1, color="blue", label="Prospective")
     ax1.errorbar(x=range(7), y=pros_retro_mean_1, yerr=pros_retro_std_1, fmt='o', capsize=5, color="blue")
@@ -331,18 +390,25 @@ def plot_retro_bias_progress_instructions():
     ax1.plot(retro_mean_instr, color="green", label="Instructions")
     ax1.errorbar(x=range(7), y=retro_mean_instr, yerr=retro_std_instr, fmt='o', capsize=5, color="green")
 
-    ax1.set_xlabel("progress difference: retrospective - prospective")
+    ax1.set_xlabel("progress difference: retrospective - prospective", fontsize=10, fontweight='bold')
 
-    ax1.legend()
+    ax1.legend(fontsize=12)
 
     plot_retro_bias_per_condition_instructions(ax2)
 
 
-    plt.tight_layout()
-    plt.show()
+    if axs is None:
+        plt.tight_layout()
+        plt.show()
+
 
 
 if __name__ == "__main__":
 
+    model_name = "prospective"
     model_name = "momentum"
-    plot_retrospective_bias(model_name=model_name)
+    model_name = "rescorla"
+    model_name = None
+    #plot_retrospective_bias(model_name=model_name)
+    plot_retro_bias_compare_prospective_retrospective(model_name=None)
+    #plot_retro_bias_progress_instructions()
