@@ -23,7 +23,7 @@ def get_pros_retro_divergence(experiment):
 
 
 
-def plot_goal_valuation(axs=None, show=False):
+def plot_goal_valuation(axs=None, show=False, cache=False):
     """
     Plot choice proportions of prospective, retrospective, and other goals for each experiment
     """
@@ -47,7 +47,11 @@ def plot_goal_valuation(axs=None, show=False):
         axs = [plt.subplot(gs[0]), plt.subplot(gs[1])]
     experiment = 1
 
-    valuations = get_goal_valuations(experiment)
+    if not cache:
+        valuations = get_goal_valuations(experiment)
+        np.save("figures_cache/goal_valuations_exp_" + str(experiment) + ".npy", valuations)
+    else:
+        valuations = np.load("figures_cache/goal_valuations_exp_" + str(experiment) + ".npy")
 
     prospective_mean = np.mean(valuations[:,0], axis=0)
     prospective_std = np.std(valuations[:,0], axis=0) / np.sqrt(len(valuations))
@@ -69,7 +73,7 @@ def plot_goal_valuation(axs=None, show=False):
     conditions = ["80-20", "70-30", "60-40"]
     mean_values = [prospective_mean, retrospective_mean, other_mean]
     std_dev_values = np.array([prospective_std, retrospective_std, other_std])
-    models = ["Prospective", "Retrospective", "Other"]
+    models = ["prospective token", "retrospective token", "third token"]
     title = "Experiment 1"
     ylabel = "Choice probability"
     ylim = [0, 1]
@@ -79,7 +83,11 @@ def plot_goal_valuation(axs=None, show=False):
 
     experiment = 2
 
-    valuations = get_goal_valuations(experiment)
+    if not cache:
+        valuations = get_goal_valuations(experiment)
+        np.save("figures_cache/goal_valuations_exp_" + str(experiment) + ".npy", valuations)
+    else:
+        valuations = np.load("figures_cache/goal_valuations_exp_" + str(experiment) + ".npy")
 
     prospective_mean = np.mean(valuations[:, 0], axis=0)
     prospective_std = np.std(valuations[:, 0], axis=0) / np.sqrt(len(valuations))
@@ -101,13 +109,13 @@ def plot_goal_valuation(axs=None, show=False):
     conditions = ["75-25", "55-45"]
     mean_values = [prospective_mean, retrospective_mean, other_mean]
     std_dev_values = np.array([prospective_std, retrospective_std, other_std])
-    models = ["Prospective", "Retrospective", "Other"]
+    models = ["prospective token", "retrospective token", "third token"]
     title = "Experiment 2"
-    ylabel = "Choice probability"
+    ylabel = None
     ylim = [0, 1]
 
     plot_comparative_bar_plot(axs[1], data_2, mean_values, std_dev_values, conditions, models, title, ylabel, ylim,
-                              bar_width=0.2, draw_data=False)
+                              bar_width=0.2, draw_data=False, legend=False)
 
     if show:
         plt.tight_layout()

@@ -52,6 +52,13 @@ def plot_aic_bic(ax, experiment, AIC=False):
     bics_hybrid, ll_h = get_model_BIC(experiment, 'hybrid', AIC)
     bics_persistence, ll_p = get_model_BIC(experiment, 'td_persistence', AIC)
 
+    data = {
+        "momentum": bics_momentum,
+        "prospective": bics_prospective,
+        "hybrid": bics_hybrid,
+        "td_persistence": bics_persistence
+    }
+
     p = log_likelihood_ratio_test(ll_p, ll_m, 1)
     print("Proportion passing llr test:", len(np.where(p < 0.05)[0]) / len(ll_p))
 
@@ -65,6 +72,7 @@ def plot_aic_bic(ax, experiment, AIC=False):
                  pg.ttest(bics_persistence, bics_momentum, paired=True)['p-val'], \
                  pg.ttest(bics_hybrid, bics_momentum, paired=True)['p-val']]
         models = ['Hybrid', "Prospective", 'TD-Persistence', 'TD-Momentum']
+        colors = ['#add8e6', '#FAFAD2', '#90ee90', '#f08080']
 
     elif (experiment == 1) or (experiment == 2):
         fits_exp = [np.mean(bics_persistence), np.mean(bics_prospective), np.mean(bics_hybrid),
@@ -76,14 +84,17 @@ def plot_aic_bic(ax, experiment, AIC=False):
                  pg.ttest(bics_hybrid, bics_momentum, paired=True)['p-val'], \
                  pg.ttest(bics_persistence, bics_momentum, paired=True)['p-val']]
         models = ['TD-Persistence', 'Prospective', 'Hybrid', 'TD-Momentum']
+        colors = [ '#90ee90', '#FAFAD2',  '#add8e6', '#f08080']
 
     if AIC:
-        ylabel = "AIC scores"
+        title = "AIC scores"
     else:
-        ylabel = "BIC scores"
+        title = "BIC scores"
 
-    draw_significant_bar_plots(ax, models, fits_exp, std_fits_exp, \
-                               pvals, ylabel, None)
+    ylabel = None
+
+    draw_significant_bar_plots(ax, data, models, fits_exp, std_fits_exp, \
+                               pvals, ylabel, title, colors=colors)
 
 
 def get_cv_scores(experiment, model_name):
@@ -118,6 +129,12 @@ def plot_cv_score(ax, experiment):
     p_cvs = p_cvs_uf[(~np.isinf(h_cvs_uf)) & (~np.isinf(pros_cvs_uf))]
     pros_cvs = pros_cvs_uf[(~np.isinf(h_cvs_uf)) & (~np.isinf(pros_cvs_uf))]
 
+    data = {
+        "momentum": td_cvs,
+        "prospective": pros_cvs,
+        "hybrid": h_cvs,
+        "td_persistence": p_cvs
+    }
 
     if (experiment == 1) :
 
@@ -131,6 +148,8 @@ def plot_cv_score(ax, experiment):
         std_scores = [np.std(h_cvs), np.std(p_cvs), np.std(pros_cvs),
                       np.std(td_cvs)] / np.sqrt(len(h_cvs))
         models = ['Hybrid', 'TD-Persistence', 'Prospective', 'TD-Momentum']
+        colors = ['#add8e6', '#90ee90', '#FAFAD2', '#f08080']
+
 
     elif (experiment == "instr_1"):
 
@@ -143,6 +162,7 @@ def plot_cv_score(ax, experiment):
         std_scores = [np.std(h_cvs), np.std(p_cvs), np.std(pros_cvs),
                       np.std(td_cvs)] / np.sqrt(len(h_cvs))
         models = ['Hybrid', 'TD-Persistence', 'Prospective', 'TD-Momentum']
+        colors = ['#add8e6', '#90ee90', '#FAFAD2', '#f08080']
 
     elif (experiment == 2) :
 
@@ -155,11 +175,12 @@ def plot_cv_score(ax, experiment):
         std_scores = [np.std(pros_cvs), np.std(p_cvs), np.std(h_cvs),
                       np.std(td_cvs)] / np.sqrt(len(h_cvs))
         models = ['Prospective', 'TD-Persistence', 'Hybrid', 'TD-Momentum']
+        colors = ['#FAFAD2','#90ee90', '#add8e6',  '#f08080']
 
     pvals = [p_val_1, p_val_2, p_val_3, p_val_4]
 
-    draw_significant_bar_plots(ax, models,
-                               mean_scores, std_scores, pvals, "CV scores", None)
+    draw_significant_bar_plots(ax, data, models,
+                               mean_scores, std_scores, pvals, None, "CV scores", colors=colors)
 
 
 def plot_model_fits_prospective():
@@ -215,18 +236,22 @@ def plot_model_fits_prospective():
     draw_significant_bar_plots(axs[1], ['Pros+DL+M', 'Pros+Mo', 'Pros+DL', 'Prospective'],
                                fits_exp_2, std_fits_exp_2, pvals2, ylabel, None)
 
-    title_box_props = dict(boxstyle='round,pad=0.3', facecolor='lightgray', alpha=0.5)
-    axs[0].annotate("Experiment 1", xy=(-0.2, 0.5), rotation=90, xycoords='axes fraction',
-                    fontsize=11, ha='center', va='center', bbox=title_box_props)
+    # title_box_props = dict(boxstyle='round,pad=0.3', facecolor='lightgray', alpha=0.5)
+    # axs[0].annotate("Experiment 1", xy=(-2, 0.5), rotation=90, xycoords='axes fraction',
+    #                 fontsize=11, ha='center', va='center', bbox=title_box_props)
 
-    plt.tight_layout()
+    #plt.tight_layout()
     plt.show()
 
 
-def plot_model_fits_experiment(experiment=1):
-    fig = plt.figure(figsize=(14, 3))
-    gs = GridSpec(1, 4, width_ratios=[0.1, 1, 1, 1])
-    axs = [plt.subplot(gs[0, 1]), plt.subplot(gs[0, 2]), plt.subplot(gs[0, 3])]
+def plot_model_fits_experiment(experiment=1, axs=None):
+    if axs is None:
+        fig = plt.figure(figsize=(14, 3))
+        gs = GridSpec(1, 4, width_ratios=[0.1, 1, 1, 1])
+        axs = [plt.subplot(gs[0, 1]), plt.subplot(gs[0, 2]), plt.subplot(gs[0, 3])]
+        show = True
+    else:
+        show = False
 
     plot_aic_bic(axs[0], experiment, AIC=True)
     plot_aic_bic(axs[1], experiment, AIC=False)
@@ -234,33 +259,43 @@ def plot_model_fits_experiment(experiment=1):
 
     title_box_props = dict(boxstyle='round,pad=0.3', facecolor='lightgray', alpha=0.5)
 
-    axs[0].annotate("Experiment " + str(experiment), xy=(-0.3, 0.5), rotation=90, xycoords='axes fraction',
+    axs[0].annotate("Experiment " + str(experiment), xy=(-0.55, 0.5), rotation=90, xycoords='axes fraction',
                     fontsize=11, ha='center', va='center', bbox=title_box_props)
 
-    plt.tight_layout()
-    plt.show()
+    if show:
+        plt.tight_layout()
+        plt.show()
 
 
-def plot_model_fits_instructions():
-    fig = plt.figure(figsize=(11, 4))
-    gs = GridSpec(1, 3, width_ratios=[0.1, 1, 1])
-    axs = [plt.subplot(gs[0, 1]), plt.subplot(gs[0, 2])]
+def plot_model_fits_instructions(axs=None):
+    if axs is None:
+        fig = plt.figure(figsize=(11, 4))
+        gs = GridSpec(1, 3, width_ratios=[0.1, 1, 1])
+        axs = [plt.subplot(gs[0, 1]), plt.subplot(gs[0, 2])]
+        show = True
+    else:
+        show = False
 
     plot_aic_bic(axs[0], experiment=1, AIC=False)
     plot_aic_bic(axs[1], experiment="instr_1", AIC=False)
 
     title_box_props = dict(boxstyle='round,pad=0.3', facecolor='lightgray', alpha=0.5)
 
-    axs[0].annotate("No instructions", xy=(0.5, 1.15), xycoords='axes fraction',
+    axs[0].annotate("No instructions", xy=(0.5, 1.3), xycoords='axes fraction',
                     fontsize=11, ha='center', va='center', bbox=title_box_props)
 
-    axs[1].annotate("Instructions", xy=(0.5, 1.15), xycoords='axes fraction',
+    axs[1].annotate("Instructions", xy=(0.5, 1.3), xycoords='axes fraction',
                     fontsize=11, ha='center', va='center', bbox=title_box_props)
 
-    plt.tight_layout()
-    plt.show()
+    if show:
+        plt.tight_layout()
+        plt.show()
+
+
+
 
 
 if __name__ == "__main__":
-    plot_model_fits_experiment(experiment=2)
+    #plot_model_fits_experiment(experiment=1)
+    plot_model_fits_instructions()
 

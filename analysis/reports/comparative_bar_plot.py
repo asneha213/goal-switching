@@ -4,15 +4,19 @@ import numpy as np
 import seaborn as sns
 import pingouin as pg
 
+import matplotlib
+
+# Setting font properties globally
+# matplotlib.rcParams['font.weight'] = 'bold'
+# matplotlib.rcParams['font.family'] = 'sans-serif'
 
 def plot_comparative_bar_plot(ax, data, mean_values, std_dev_values, \
                               conditions, models, title, \
                               ylabel, ylim, x_pos=None, \
                               colors=None, bar_width=0.2,\
                               draw_data=True, legend=True,\
-                              label_font=12, tick_font=16, \
+                              label_font=11, tick_font=14, \
                             legend_font=9, title_font=11):
-
 
     # Sample data
 
@@ -81,7 +85,7 @@ def plot_comparative_bar_plot(ax, data, mean_values, std_dev_values, \
 
     # Add a legend
     if legend:
-        ax.legend(fontsize=legend_font, loc='upper right')
+        ax.legend(fontsize=legend_font, loc='upper left')
 
     # Adjust y-axis limits
     ax.set_ylim(ylim)
@@ -100,11 +104,12 @@ def plot_comparative_bar_plot(ax, data, mean_values, std_dev_values, \
     # Add gridlines
     ax.grid(axis='y', linestyle='--', alpha=0.5)
 
-    # Add title boxes to each subplot
-    title_box_props = dict(boxstyle='round,pad=0.3', facecolor='lightgray', alpha=0.5)
-
-    ax.annotate(title, xy=(0.5, 1.05), xycoords='axes fraction',
-                    fontsize=title_font, ha='center', bbox=title_box_props)
+    # # Add title boxes to each subplot
+    # title_box_props = dict(boxstyle='round,pad=0.3', facecolor='lightgray', alpha=0.5)
+    #
+    # ax.annotate(title, xy=(0.5, 1.05), xycoords='axes fraction',
+    #                 fontsize=title_font, ha='center', bbox=title_box_props)
+    ax.set_title(title, fontsize=title_font)
 
 
 
@@ -133,10 +138,10 @@ def plot_correlation_param_measure(ax, x, y, p_val, xlabel, ylabel, title):
     sns.regplot(x=x, y=y, scatter=False, color='red', label=f'r={corr:.2f}, p={p_val}', ax=ax)
 
     # Add labels and title
-    ax.set_xlabel(xlabel, fontsize=11)
-    ax.set_ylabel(ylabel, fontsize=11)
+    ax.set_xlabel(xlabel, fontsize=11, fontweight='bold')
+    ax.set_ylabel(ylabel, fontsize=11, fontweight='bold')
 
-    ax.legend(fontsize=11)
+    ax.legend(fontsize=12)
 
     # Add title boxes to each subplot
     title_box_props = dict(boxstyle='round,pad=0.3', facecolor='lightgray', alpha=0.5)
@@ -152,8 +157,8 @@ def plot_multiple_histograms(ax, measures, labels, xlabel, ylabel, title=None):
         label = labels[i]
         sns.histplot(measure, kde=True, stat="density", linewidth=0, alpha=0.4, label=label, color=colors[i], ax=ax)
 
-    ax.set_xlabel(xlabel, fontweight='bold')
-    ax.set_ylabel(ylabel, fontweight='bold')
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
     ax.legend()
 
 

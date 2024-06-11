@@ -131,7 +131,7 @@ def plot_retro_bias_per_condition(experiment, ax, model_name=None, compare=False
     else:
         legend = False
     plot_comparative_bar_plot(ax, data, mean_values, std_dev_values, conditions, models, title, ylabel, ylim,
-                              bar_width=0.13, legend=legend)
+                              bar_width=0.18, legend=legend)
 
 
 def plot_retro_bias_per_condition_instructions(ax):
@@ -346,15 +346,24 @@ def compare_behavior_model(seed):
     plt.savefig("retro_bias_" + str(seed) + ".png")
 
 
-def plot_retro_bias_progress_instructions(axs):
+def plot_retro_bias_progress_instructions(axs=None, cache=False):
 
-    pros_retro_bias_1 = ModelOptimizer(experiment=1, model_name="prospective").simulate_params(
-        measure_name="retro_value_count")
+    if cache:
+        pros_retro_bias_1 = np.load("figures_cache/pros_retro_bias_1.npy")
+        sub_retro_1 = np.load("figures_cache/sub_retro_1.npy")
+        sub_retro_instr = np.load("figures_cache/sub_retro_instr.npy")
+    else:
 
-    sub_retro_1 = get_measure_experiment(experiment=1, measure_name="retro_value_count", \
-                                         mode="measure")
-    sub_retro_instr = get_measure_experiment(experiment="instr_1", measure_name="retro_value_count", \
+        pros_retro_bias_1 = ModelOptimizer(experiment=1, model_name="prospective").simulate_params(
+            measure_name="retro_value_count")
+
+        sub_retro_1 = get_measure_experiment(experiment=1, measure_name="retro_value_count", \
                                              mode="measure")
+        sub_retro_instr = get_measure_experiment(experiment="instr_1", measure_name="retro_value_count", \
+                                                 mode="measure")
+        np.save("figures_cache/pros_retro_bias_1.npy", pros_retro_bias_1)
+        np.save("figures_cache/sub_retro_1.npy", sub_retro_1)
+        np.save("figures_cache/sub_retro_instr.npy", sub_retro_instr)
 
 
     pros_retro_mean_1 = [np.mean(pros_retro_bias_1[i], axis=0) for i in range(len(pros_retro_bias_1))]
@@ -377,9 +386,11 @@ def plot_retro_bias_progress_instructions(axs):
         ax2 = plt.subplot(gs[0, 0])
 
         ax1 = plt.subplot(gs[0, 1], sharey=ax2)
+        show = True
     else:
         ax1 = axs[0]
         ax2 = axs[1]
+        show = False
 
     ax1.plot(pros_retro_mean_1, color="blue", label="Prospective")
     ax1.errorbar(x=range(7), y=pros_retro_mean_1, yerr=pros_retro_std_1, fmt='o', capsize=5, color="blue")
@@ -390,14 +401,14 @@ def plot_retro_bias_progress_instructions(axs):
     ax1.plot(retro_mean_instr, color="green", label="Instructions")
     ax1.errorbar(x=range(7), y=retro_mean_instr, yerr=retro_std_instr, fmt='o', capsize=5, color="green")
 
-    ax1.set_xlabel("progress difference: retrospective - prospective", fontsize=10, fontweight='bold')
+    ax1.set_xlabel("progress difference: retrospective - prospective", fontsize=10)
 
-    ax1.legend(fontsize=12)
+    ax1.legend(fontsize=9)
 
     plot_retro_bias_per_condition_instructions(ax2)
 
 
-    if axs is None:
+    if show:
         plt.tight_layout()
         plt.show()
 
@@ -409,6 +420,6 @@ if __name__ == "__main__":
     model_name = "momentum"
     model_name = "rescorla"
     model_name = None
-    #plot_retrospective_bias(model_name=model_name)
-    plot_retro_bias_compare_prospective_retrospective(model_name=None)
-    #plot_retro_bias_progress_instructions()
+    plot_retrospective_bias(model_name=model_name)
+    #plot_retro_bias_compare_prospective_retrospective(model_name=None)
+    #plot_retro_bias_progress_instructions(cache=False)

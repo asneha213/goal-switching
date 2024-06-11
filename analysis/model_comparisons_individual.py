@@ -6,7 +6,7 @@ from behavior import *
 import pingouin as pg
 
 
-def plot_bic_diff(ax, bics0, bics1, titles, ylim, title=""):
+def plot_bic_diff(ax, bics0, bics1, titles, ylim, title="", ylabel=True):
 
     # Sample sorted array
     sorted_array = np.sort(bics0 - bics1)
@@ -33,8 +33,9 @@ def plot_bic_diff(ax, bics0, bics1, titles, ylim, title=""):
                 ha='center', va='center', color='red')
 
     # Set labels and title
-    ax.set_xlabel('subjects')
-    ax.set_ylabel('BIC difference')
+    ax.set_xlabel('subjects', fontsize=11)
+    if ylabel is not None:
+        ax.set_ylabel('BIC difference', fontsize=11)
     #ax.set_title('Colored Rectangular Bars of a Sorted Array')
 
     # Add grid lines for better readability
@@ -51,16 +52,17 @@ def plot_bic_diff(ax, bics0, bics1, titles, ylim, title=""):
 
 
 def plot_bics_diffs_two_experiments(axs, bics_exp1_m1, bics_exp1_m2, \
-                                    bics_exp2_m1, bics_exp2_m2, titles, ylims):
+                                    bics_exp2_m1, bics_exp2_m2, titles, ylims, show=True):
 
     plot_bic_diff(axs[0], bics_exp1_m1, bics_exp1_m2, titles, ylims[0], title="No instructions")
-    plot_bic_diff(axs[1], bics_exp2_m1, bics_exp2_m2, titles, ylims[1], title="Instructions")
+    plot_bic_diff(axs[1], bics_exp2_m1, bics_exp2_m2, titles, ylims[1], title="Instructions", ylabel=None)
 
-    plt.tight_layout()
-    plt.show()
+    if show:
+        plt.tight_layout()
+        plt.show()
 
 
-def plot_model_comparisions_individual(experiments=[1, 2], AIC=False):
+def plot_model_comparisions_individual(experiments=[1, 2], AIC=False, axs=None):
     experiment = experiments[0]
 
     bics_td_1, _ = get_model_BIC(experiment, 'momentum', AIC)
@@ -71,18 +73,22 @@ def plot_model_comparisions_individual(experiments=[1, 2], AIC=False):
     bics_td_2, _ = get_model_BIC(experiment, 'momentum', AIC)
     bics_nt_2, _ = get_model_BIC(experiment, 'td_persistence', AIC)
 
-    fig = plt.figure(figsize=(8, 4))
+    if axs is None:
+        fig = plt.figure(figsize=(8, 4))
 
-    if experiments[1] == 2:
-        gs = GridSpec(1, 2, width_ratios=[1.2, 1])
+        if experiments[1] == 2:
+            gs = GridSpec(1, 2, width_ratios=[1.2, 1])
+        else:
+            gs = GridSpec(1, 2, width_ratios=[1, 1])
+
+        axs = [plt.subplot(gs[0, 0]), plt.subplot(gs[0, 1])]
+        show = True
     else:
-        gs = GridSpec(1, 2, width_ratios=[1, 1])
-
-    axs = [plt.subplot(gs[0, 0]), plt.subplot(gs[0, 1])]
+        show = False
 
     plot_bics_diffs_two_experiments(axs, bics_nt_1, bics_td_1, bics_nt_2, bics_td_2, \
                                     ["TD Persistence better", "TD Momentum better"], \
-                                    [[-180, 330], [-180, 250]])
+                                    [[-180, 330], [-180, 250]], show=show)
 
 
 def get_performance_difference_two_groups_instructions():
@@ -103,7 +109,7 @@ def get_performance_difference_two_groups_instructions():
     ax = fig.add_subplot(111)
 
     ax.plot(range(7), retro_bias_mom_mean, label="explained by TD-Momentum", color="red")
-    ax.plot(range(7), retro_bias_nt_mean, label="explained by TD_Persistence", color="blue")
+    ax.plot(range(7), retro_bias_nt_mean, label="explained by TD-Persistence", color="blue")
 
     ax.legend(fontsize=12)
     ax.set_xlabel("progress: retrospective - prospective", fontsize=11)
@@ -118,3 +124,4 @@ def get_performance_difference_two_groups_instructions():
 
 if __name__ == "__main__":
     plot_model_comparisions_individual(experiments=[1, "instr_1"])
+    #get_performance_difference_two_groups_instructions()

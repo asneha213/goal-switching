@@ -95,19 +95,20 @@ def plot_stay_switch_rates(axs=None, model_name=None, experiments=[1, 2], show=F
     if model_name is None:
         if not cache:
             no_reward_rates, reward_rates = get_switches_from_max_prob_max_slot(experiment=experiment, behavior=True)
-            np.save("figures_cache/no_reward_rates_exp1.npy", no_reward_rates)
-            np.save("figures_cache/reward_rates_exp1.npy", reward_rates)
+            np.save("figures_cache/no_reward_rates_exp" + str(experiment) + ".npy", no_reward_rates)
+            np.save("figures_cache/reward_rates_exp" + str(experiment) + ".npy", reward_rates)
         else:
-            no_reward_rates = np.load("figures_cache/no_reward_rates_exp1.npy")
-            reward_rates = np.load("figures_cache/reward_rates_exp1.npy")
+            no_reward_rates = np.load("figures_cache/no_reward_rates_exp" + str(experiment) + ".npy")
+            reward_rates = np.load("figures_cache/reward_rates_exp" + str(experiment) + ".npy")
     else:
         if not cache:
             no_reward_rates, reward_rates = get_switches_from_max_prob_max_slot(experiment=experiment, behavior=False, model_name=model_name)
-            np.save("figures_cache/no_reward_rates_exp1.npy", no_reward_rates)
-            np.save("figures_cache/reward_rates_exp1.npy", reward_rates)
+            np.save("figures_cache/no_reward_rates_exp_" + str(experiment) + model_name + ".npy", no_reward_rates)
+            np.save("figures_cache/reward_rates_exp_" + str(experiment) + model_name + ".npy", reward_rates)
         else:
-            no_reward_rates = np.load("figures_cache/no_reward_rates_exp1.npy")
-            reward_rates = np.load("figures_cache/reward_rates_exp1.npy")
+            no_reward_rates = np.load("figures_cache/no_reward_rates_exp_" + str(experiment) + model_name + ".npy")
+            reward_rates = np.load("figures_cache/reward_rates_exp_" + str(experiment) + model_name + ".npy")
+
 
     conditions = ['80-20', '70-30', '60-40', '80-20', '70-30', '60-40']
     models = ['no reward', 'reward']
@@ -121,10 +122,10 @@ def plot_stay_switch_rates(axs=None, model_name=None, experiments=[1, 2], show=F
 
     title_box_props = dict(boxstyle='round,pad=0.3', facecolor='lightgray', alpha=0.5)
 
-    axs[0].annotate("retrospective token", xy=(0.25, -0.28), xycoords='axes fraction',
-                    fontsize=10, ha='center')
-    axs[0].annotate("prospective token", xy=(0.75, -0.28), xycoords='axes fraction',
-                    fontsize=10, ha='center')
+    axs[0].annotate("retrospective choice", xy=(0.25, -0.28), xycoords='axes fraction',
+                    fontsize=9, ha='center')
+    axs[0].annotate("prospective choice", xy=(0.75, -0.28), xycoords='axes fraction',
+                    fontsize=9, ha='center')
 
     # axs[0].axvspan(-0.3, 2.9, facecolor='green', alpha=0.3)
     # axs[0].axvspan(2.9, 6.2, facecolor='orange', alpha=0.3)
@@ -214,10 +215,10 @@ def plot_stay_switch_rates(axs=None, model_name=None, experiments=[1, 2], show=F
     # axs[1].axvspan(1.9, 4.2, facecolor='orange', alpha=0.3)
     # Add title boxes to each subplot
 
-    axs[1].annotate("retrospective token", xy=(0.25, -0.28), xycoords='axes fraction',
-                fontsize=10, ha='center')
-    axs[1].annotate("prospective token", xy=(0.75, -0.28), xycoords='axes fraction',
-                    fontsize=10, ha='center')
+    axs[1].annotate("retrospective choice", xy=(0.25, -0.28), xycoords='axes fraction',
+                fontsize=9, ha='center')
+    axs[1].annotate("prospective choice", xy=(0.75, -0.28), xycoords='axes fraction',
+                    fontsize=9, ha='center')
 
     p_val_75_25_nr = pg.ttest(no_reward_rates[:, 0], no_reward_rates[:, 2], paired=True)['p-val']
     p_val_55_45_nr = pg.ttest(no_reward_rates[:, 1], no_reward_rates[:, 3], paired=True)['p-val']
@@ -291,7 +292,8 @@ def compare_behavior_model(model_name, cache=False):
     plt.show()
 
 
-def compare_behavior_model_all(seed=100):
+def compare_behavior_model_all(seed=120, cache=False):
+    np.random.seed(seed)
     fig = plt.figure(figsize=(17, 15))
     gs = GridSpec(7, 2, width_ratios=[1.35, 1], height_ratios=[1, 0.1, 1, 0.1, 1, 0.1, 1])  # Set the height ratios for the subplots
 
@@ -310,10 +312,10 @@ def compare_behavior_model_all(seed=100):
     axs = [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8]
 
 
-    plot_stay_switch_rates([axs[0], axs[1]], model_name=None)
-    plot_stay_switch_rates([axs[2], axs[3]], model_name="momentum")
-    plot_stay_switch_rates([axs[4], axs[5]], model_name="prospective")
-    plot_stay_switch_rates([axs[6], axs[7]], model_name="td_persistence")
+    plot_stay_switch_rates([axs[0], axs[1]], model_name=None, cache=cache)
+    plot_stay_switch_rates([axs[2], axs[3]], model_name="momentum", cache=cache)
+    plot_stay_switch_rates([axs[4], axs[5]], model_name="prospective", cache=cache)
+    plot_stay_switch_rates([axs[6], axs[7]], model_name="td_persistence", cache=cache)
 
     # Add labels "A" and "B" at the top of the subplots
     axs[0].annotate("BEHAVIOR", xy=(-0.2, 0.25), xycoords='axes fraction', fontsize=15, weight='bold', rotation=90)
@@ -326,7 +328,7 @@ def compare_behavior_model_all(seed=100):
 
 if __name__ == "__main__":
 
-    #compare_behavior_model_all()
+    #compare_behavior_model_all(cache=False)
     model_name = None
     compare_behavior_model(model_name=model_name, cache=False)
 
