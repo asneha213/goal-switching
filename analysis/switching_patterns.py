@@ -215,10 +215,10 @@ def plot_stay_switch_rates(axs=None, model_name=None, experiments=[1, 2], show=F
     # axs[1].axvspan(1.9, 4.2, facecolor='orange', alpha=0.3)
     # Add title boxes to each subplot
 
-    axs[1].annotate("retrospective choice", xy=(0.25, -0.28), xycoords='axes fraction',
-                fontsize=9, ha='center')
-    axs[1].annotate("prospective choice", xy=(0.75, -0.28), xycoords='axes fraction',
-                    fontsize=9, ha='center')
+    # axs[1].annotate("retrospective choice", xy=(0.25, -0.28), xycoords='axes fraction',
+    #             fontsize=9, ha='center')
+    # axs[1].annotate("prospective choice", xy=(0.75, -0.28), xycoords='axes fraction',
+    #                 fontsize=9, ha='center')
 
     p_val_75_25_nr = pg.ttest(no_reward_rates[:, 0], no_reward_rates[:, 2], paired=True)['p-val']
     p_val_55_45_nr = pg.ttest(no_reward_rates[:, 1], no_reward_rates[:, 3], paired=True)['p-val']
@@ -328,8 +328,9 @@ def compare_behavior_model_all(seed=120, cache=False):
 
 if __name__ == "__main__":
 
-    #compare_behavior_model_all(cache=False)
-    model_name = None
+    #compare_behavior_model_all(cache=True)
+    model_name = "momentum"
+    model_name = "rescorla"
     compare_behavior_model(model_name=model_name, cache=False)
 
 
