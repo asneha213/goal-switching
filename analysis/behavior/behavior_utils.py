@@ -210,6 +210,49 @@ def get_moving_average(arr, window_size=3):
     return moving_averages
 
 
+def find_second_highest_index(arr):
+    if len(arr) < 2:
+        return None  # Not enough elements to find the second highest
+
+    first_highest = float('-inf')
+    second_highest = float('-inf')
+    first_index = -1
+    second_index = -1
+
+    # Find the highest value
+    for i in range(len(arr)):
+        if arr[i] > first_highest:
+            first_highest = arr[i]
+            first_index = i
+
+    # Find the second highest value
+    for i in range(len(arr)):
+        if arr[i] > second_highest and arr[i] != first_highest:
+            second_highest = arr[i]
+            second_index = i
+
+    return second_index
+
+
+def safe_divide(numerator, denominator):
+    # Convert to NumPy arrays for element-wise operations
+    numerator = np.array(numerator)
+    denominator = np.array(denominator)
+
+    # Create an array for the results
+    result = np.zeros_like(numerator, dtype=float)
+
+    # Avoid division by zero
+    mask = denominator != 0
+    result[mask] = numerator[mask] / denominator[mask]
+
+    # Optionally, handle the 0/0 case
+    zero_mask = (numerator == 0) & (denominator == 0)
+    result[zero_mask] = np.nan  # or any other value you prefer to indicate 0/0
+
+    return result
+
+
 def get_goals_from_choices(choices):
 
     goals = [ (choices[i + 1] + choices[i + 2] ) / 2 for i in range(len(choices)) if (i % 3 == 2) and (i < len(choices) - 2)]

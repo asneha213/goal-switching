@@ -113,6 +113,7 @@ def plot_model_parameters_behavior_correlation_experiment(experiment):
                                                   model_name=model_name, \
                                                   param_id="alpha", measure_name="performance")
 
+    print("LR- P", pg.corr(alphas, performances))
     if experiment == 1:
         pval = "2e-6"
     elif experiment == 2:
@@ -120,14 +121,15 @@ def plot_model_parameters_behavior_correlation_experiment(experiment):
     elif experiment == "instr_1":
         pval = "0.01"
 
-    plot_correlation_param_measure(axs[0], alphas, performances, pval, \
-                                   r"Learning rate: $\alpha$", "Task performance", \
-                                   None)
+    # plot_correlation_param_measure(axs[0], alphas, performances, pval, \
+    #                                r"Learning rate: $\alpha$", "Task performance", \
+    #                                None)
 
     betas, switches = get_model_param_measures(experiment=experiment, \
                                                     model_name=model_name, \
                                                     param_id="beta_0", measure_name="switches_actions")
 
+    print(pg.corr(betas, switches))
     if experiment == 1:
         pval = "1e-7"
     elif experiment == 2:
@@ -135,14 +137,15 @@ def plot_model_parameters_behavior_correlation_experiment(experiment):
     elif experiment == "instr_1":
         pval = "0.01"
 
-    plot_correlation_param_measure(axs[1], -betas, switches, pval, \
-                                     r"Switch cost: $\beta_0$", "Action switches", \
-                                      None)
+    # plot_correlation_param_measure(axs[1], -betas, switches, pval, \
+    #                                  r"Switch cost: $\beta_0$", "Action switches", \
+    #                                   None)
 
     betas, retros = get_model_param_measures(experiment=experiment, \
                                                     model_name=model_name, \
                                                     param_id="beta_a", measure_name="retro_value")
 
+    print(pg.corr(betas, retros))
     if experiment == 1:
         pval = "1e-6"
     elif experiment == 2:
@@ -150,14 +153,15 @@ def plot_model_parameters_behavior_correlation_experiment(experiment):
     elif experiment == "instr_1":
         pval = "0.01"
 
-    plot_correlation_param_measure(axs[2], betas, retros, pval, \
-                                        r"Action switching temperature: $\beta_a$", "Retrospectively biased choice", \
-                                        None)
+    # plot_correlation_param_measure(axs[2], betas, retros, pval, \
+    #                                     r"Action switching temperature: $\beta_a$", "Retrospectively biased choice", \
+    #                                     None)
 
     betas, switches = get_model_param_measures(experiment=experiment, \
                                                model_name=model_name, \
                                                param_id="alpha_c", measure_name="switches_probes")
 
+    print(pg.corr(betas, switches))
     if experiment == 1:
         pval = "5e-5"
     elif experiment == 2:
@@ -165,14 +169,15 @@ def plot_model_parameters_behavior_correlation_experiment(experiment):
     elif experiment == "instr_1":
         pval = "0.01"
 
-    plot_correlation_param_measure(axs[3], -betas, switches, pval, \
-                                   r"Switch cost: $\alpha_c$", "Goal switches", \
-                                   None)
+    # plot_correlation_param_measure(axs[3], -betas, switches, pval, \
+    #                                r"Switch cost: $\alpha_c$", "Goal switches", \
+    #                                None)
 
     gammas, switches = get_model_param_measures(experiment=experiment, \
                                                model_name=model_name, \
                                                param_id="gamma", measure_name="performance")
 
+    print(pg.corr(gammas, switches))
     if experiment == 1:
         pval = "5e-5"
     elif experiment == 2:
@@ -180,9 +185,9 @@ def plot_model_parameters_behavior_correlation_experiment(experiment):
     elif experiment == "instr_1":
         pval = "0.01"
 
-    plot_correlation_param_measure(axs[4], gammas, switches, pval, \
-                                   r"Discount factor: $\gamma$", "Action switches", \
-                                   None)
+    # plot_correlation_param_measure(axs[4], gammas, switches, pval, \
+    #                                r"Discount factor: $\gamma$", "Action switches", \
+    #                                None)
 
     title_box_props = dict(boxstyle='round,pad=0.3', facecolor='lightgray', alpha=0.5)
 
@@ -193,17 +198,17 @@ def plot_model_parameters_behavior_correlation_experiment(experiment):
     elif experiment == "instr_1":
         title = "Experiment 3"
 
-    axs[0].annotate(title, xy=(-0.3, 0.5), rotation=90, xycoords='axes fraction',
-                    fontsize=11, ha='center', va='center', bbox=title_box_props)
-
-    plt.tight_layout()
-    plt.show()
+    # axs[0].annotate(title, xy=(-0.3, 0.5), rotation=90, xycoords='axes fraction',
+    #                 fontsize=11, ha='center', va='center', bbox=title_box_props)
+    #
+    # plt.tight_layout()
+    # plt.show()
 
 
 
 if __name__ == "__main__":
 
-    plot_model_parameters_behavior_correlation_experiment("instr_1")
+    plot_model_parameters_behavior_correlation_experiment(4)
 
 
 

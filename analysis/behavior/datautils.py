@@ -1,5 +1,7 @@
 import os
 import json
+import pandas as pd
+import numpy as np
 
 
 def get_subject_data_from_id(experiment, sub_path):
@@ -34,11 +36,24 @@ def get_experiment_trial_details(experiment):
         details["num_episodes"] = 12
         details["num_trials"] = 30
         details["num_conditions"] = 2
+        details["num_samples"] = 360
+
+    elif experiment == 'bandit':
+        details["num_episodes"] = 12
+        details["num_trials"] = 30
+        details["num_conditions"] = 2
+
+    elif experiment == 4:
+        details["num_episodes"] = 12
+        details["num_trials"] = 30
+        details["num_conditions"] = 2
+        details["num_samples"] = 360
 
     elif experiment == "normative":
         details["num_episodes"] = 18
         details["num_trials"] = 30
         details["num_conditions"] = 1
+
 
     return details
 
@@ -70,8 +85,27 @@ def get_experiment_subjects(experiment):
 
     return subject_names
 
+def get_demographic_info(experiment):
+    data_path = "../../data/experiment_" + str(experiment) + "/"
+    filenames = os.listdir(data_path)
+    demo_file = [f for f in filenames if f.startswith('prolific')]
+
+    ages = []
+    sex = []
+    for df in demo_file:
+        demo_info = pd.read_csv(data_path + df)
+        ages.extend(demo_info['Age'].to_list())
+        sex.extend(demo_info['Sex'].to_list())
+
+    ages = [int(age) for age in ages if age != 'CONSENT_REVOKED' and age!='DATA_EXPIRED']
+    sex = [s for s in sex if s != 'CONSENT_REVOKED' and s!='DATA_EXPIRED']
+    print("Sex count: ", sex.count('Female'), sex.count('Male'))
+    print("Age: ", min(ages), max(ages), np.mean(ages), np.std(ages))
+
+
 
 if __name__ == "__main__":
-    get_experiment_subjects(experiment="instr_1")
+    #get_experiment_subjects(experiment="instr_1")
+    get_demographic_info(experiment="instr_1")
 
 

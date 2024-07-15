@@ -74,7 +74,7 @@ def plot_aic_bic(ax, experiment, AIC=False):
         models = ['Hybrid', "Prospective", 'TD-Persistence', 'TD-Momentum']
         colors = ['#add8e6', '#FAFAD2', '#90ee90', '#f08080']
 
-    elif (experiment == 1) or (experiment == 2):
+    elif (experiment == 1) or (experiment == 2) or (experiment == 4):
         fits_exp = [np.mean(bics_persistence), np.mean(bics_prospective), np.mean(bics_hybrid),
                     np.mean(bics_momentum)]
         std_fits_exp = [np.std(bics_persistence), np.std(bics_prospective), np.std(bics_hybrid),
@@ -177,6 +177,20 @@ def plot_cv_score(ax, experiment):
         models = ['Prospective', 'TD-Persistence', 'Hybrid', 'TD-Momentum']
         colors = ['#FAFAD2','#90ee90', '#add8e6',  '#f08080']
 
+    elif  (experiment == 4):
+
+        p_val_1 = pg.ttest(pros_cvs, p_cvs, paired=True)['p-val']
+        p_val_2 = pg.ttest(h_cvs, pros_cvs, paired=True)['p-val']
+        p_val_3 = pg.ttest(td_cvs, h_cvs, paired=True)['p-val']
+        p_val_4 = pg.ttest(td_cvs, p_cvs, paired=True)['p-val']
+
+        mean_scores = [np.mean(p_cvs), np.mean(pros_cvs), np.mean(h_cvs), np.mean(td_cvs)]
+        std_scores = [np.std(p_cvs), np.std(pros_cvs), np.std(h_cvs),
+                        np.std(td_cvs)] / np.sqrt(len(h_cvs))
+        models = ['TD-Persistence', 'Prospective', 'Hybrid', 'TD-Momentum']
+        colors = ['#90ee90', '#FAFAD2', '#add8e6', '#f08080']
+
+
     pvals = [p_val_1, p_val_2, p_val_3, p_val_4]
 
     draw_significant_bar_plots(ax, data, models,
@@ -209,8 +223,11 @@ def plot_model_fits_prospective():
 
     pvals2 = [pg.ttest(bics_dlm_2, bics_m_2, paired=True)['p-val'], pg.ttest(bics_m_2, bics_dl_2, paired=True)['p-val'], pg.ttest(bics_dl_2, bics_pros_2, paired=True)['p-val'], pg.ttest(bics_dlm_2, bics_pros_2, paired=True)['p-val']]
 
-    draw_significant_bar_plots(axs[0], ['Pros+DL+M', 'Pros+Mo', 'Pros+DL', 'Prospective'],
-                                 fits_exp_2, std_fits_exp_2, pvals2, ylabel, None)
+    # draw_significant_bar_plots(axs[0], ['Pros+DL+M', 'Pros+Mo', 'Pros+DL', 'Prospective'],
+    #                              fits_exp_2, std_fits_exp_2, pvals2, ylabel, None)
+    draw_significant_bar_plots(axs[0], None, ['Pros+DL+M', 'Pros+Mo', 'Pros+DL', 'Prospective'],
+                               fits_exp_2, std_fits_exp_2, pvals2, ylabel,
+                               "AIC scores")
 
     AIC = False
 
@@ -233,8 +250,8 @@ def plot_model_fits_prospective():
               pg.ttest(bics_dl_2, bics_pros_2, paired=True)['p-val'],
               pg.ttest(bics_dlm_2, bics_pros_2, paired=True)['p-val']]
 
-    draw_significant_bar_plots(axs[1], ['Pros+DL+M', 'Pros+Mo', 'Pros+DL', 'Prospective'],
-                               fits_exp_2, std_fits_exp_2, pvals2, ylabel, None)
+    draw_significant_bar_plots(axs[1], None,['Pros+DL+M', 'Pros+Mo', 'Pros+DL', 'Prospective'],
+                               fits_exp_2, std_fits_exp_2, pvals2, ylabel, 'BIC scores')
 
     # title_box_props = dict(boxstyle='round,pad=0.3', facecolor='lightgray', alpha=0.5)
     # axs[0].annotate("Experiment 1", xy=(-2, 0.5), rotation=90, xycoords='axes fraction',
@@ -259,6 +276,9 @@ def plot_model_fits_experiment(experiment=1, axs=None):
 
     title_box_props = dict(boxstyle='round,pad=0.3', facecolor='lightgray', alpha=0.5)
 
+    if experiment == 4:
+        experiment = 3
+
     axs[0].annotate("Experiment " + str(experiment), xy=(-0.55, 0.5), rotation=90, xycoords='axes fraction',
                     fontsize=11, ha='center', va='center', bbox=title_box_props)
 
@@ -281,11 +301,11 @@ def plot_model_fits_instructions(axs=None):
 
     title_box_props = dict(boxstyle='round,pad=0.3', facecolor='lightgray', alpha=0.5)
 
-    axs[0].annotate("No instructions", xy=(0.5, 1.3), xycoords='axes fraction',
-                    fontsize=11, ha='center', va='center', bbox=title_box_props)
+    axs[0].annotate("No instructions", xy=(0.5, 1.5), xycoords='axes fraction',
+                    fontsize=10, ha='center', va='center', bbox=title_box_props)
 
-    axs[1].annotate("Instructions", xy=(0.5, 1.3), xycoords='axes fraction',
-                    fontsize=11, ha='center', va='center', bbox=title_box_props)
+    axs[1].annotate("Instructions", xy=(0.5, 1.5), xycoords='axes fraction',
+                    fontsize=10, ha='center', va='center', bbox=title_box_props)
 
     if show:
         plt.tight_layout()
@@ -296,6 +316,7 @@ def plot_model_fits_instructions(axs=None):
 
 
 if __name__ == "__main__":
-    #plot_model_fits_experiment(experiment=1)
-    plot_model_fits_instructions()
+    #plot_model_fits_experiment(experiment=4)
+    #plot_model_fits_instructions()
+    plot_model_fits_prospective()
 

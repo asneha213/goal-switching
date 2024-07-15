@@ -15,8 +15,8 @@ def plot_comparative_bar_plot(ax, data, mean_values, std_dev_values, \
                               ylabel, ylim, x_pos=None, \
                               colors=None, bar_width=0.2,\
                               draw_data=True, legend=True,\
-                              label_font=11, tick_font=14, \
-                            legend_font=9, title_font=11):
+                              label_font=12, tick_font=14, \
+                            legend_font=11, title_font=12):
 
     # Sample data
 
@@ -57,7 +57,8 @@ def plot_comparative_bar_plot(ax, data, mean_values, std_dev_values, \
 
     # Define color scheme
     if not colors:
-        colors = ['#1f77b4', "red", '#2ca02c', '#808080']
+        #colors = ['#1f77b4', "red", '#2ca02c', '#808080']
+        colors = ['#90ee90', '#add8e6', '#f08080','#FAFAD2', ]
 
 
     # Loop through each model
@@ -92,7 +93,7 @@ def plot_comparative_bar_plot(ax, data, mean_values, std_dev_values, \
 
     # Increase font size for xticks and yticks
 
-    ax.tick_params(axis='both', which='major', labelsize=10)
+    ax.tick_params(axis='both', which='major', labelsize=11)
 
     # Remove top and right spines
     ax.spines['top'].set_visible(False)
@@ -150,16 +151,18 @@ def plot_correlation_param_measure(ax, x, y, p_val, xlabel, ylabel, title):
                 fontsize=11, ha='center', bbox=title_box_props)
 
 
-def plot_multiple_histograms(ax, measures, labels, xlabel, ylabel, title=None):
+def plot_multiple_histograms(ax, measures, labels, xlabel, ylabel, title=None, legend=True):
     colors = ['#1f77b4', "red", '#2ca02c', '#808080']
+    colors = ['#90ee90', '#add8e6', '#f08080', '#FAFAD2', ]
     for i in range(len(measures)):
         measure = measures[i]
         label = labels[i]
         sns.histplot(measure, kde=True, stat="density", linewidth=0, alpha=0.4, label=label, color=colors[i], ax=ax)
 
-    ax.set_xlabel(xlabel)
-    ax.set_ylabel(ylabel)
-    ax.legend()
+    ax.set_xlabel(xlabel, fontsize=11)
+    ax.set_ylabel(ylabel, fontsize=11)
+    if legend:
+        ax.legend(fontsize=9)
 
 
 if __name__ == "__main__":

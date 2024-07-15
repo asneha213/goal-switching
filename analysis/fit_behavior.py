@@ -6,6 +6,13 @@ from models import *
 
 
 def get_optuna_params(trial, model_name):
+    if model_name == "rescorla":
+        alpha = trial.suggest_uniform('alpha', 0.0, 1.0)
+        alpha_c = trial.suggest_uniform('alpha_c', 0.0, 1.0)
+        beta_g = trial.suggest_uniform('beta_g', 0.0, 10.0)
+        beta_c = trial.suggest_uniform('beta_c', 0.0, 10.0)
+        params = [alpha, alpha_c, beta_g, beta_c]
+        return params
 
     alpha = trial.suggest_uniform('alpha', 0.0, 1.0)
     alpha_c = trial.suggest_uniform('alpha_c', 0.0, 1.0)
@@ -36,16 +43,25 @@ def get_optuna_params(trial, model_name):
         alpha_e = trial.suggest_uniform('alpha_e', 0.0, 1.0)
         params = [alpha, alpha_c, beta_0, beta_g, beta_a, gamma, alpha_e]
 
-    elif model_name == "hybrid":
+    elif model_name == "hybrid" or model_name == "hybrid_mp":
         gamma = trial.suggest_uniform('gamma', 0.0, 1.0)
         wa = trial.suggest_uniform('wa', 0.0, 1.0)
         params = [alpha, alpha_c, beta_0, beta_g, beta_a, gamma, wa]
+
+    elif model_name == "prospective_rates":
+        gamma = trial.suggest_uniform('gamma', 0.0, 1.0)
+        params = [alpha, alpha_c, beta_0, beta_g, beta_a, gamma]
+
+    elif model_name == "momentum_rates":
+        gamma = trial.suggest_uniform('gamma', 0.0, 1.0)
+        params = [alpha, alpha_c, beta_0, beta_g, beta_a, gamma]
+
 
     return params
 
 
 class BehaviorFits:
-    def __init__(self, experiment, subject_id, model_name, model_res=None):
+    def __init__(self, experiment, subject_id, model_name, model_res=None, rewrite=False):
         self.experiment = experiment
         self.subject_id = subject_id
         self.model_name = model_name
@@ -56,6 +72,7 @@ class BehaviorFits:
 
         self.test_blocks = None
         self.trt =None
+        self.rewrite = rewrite
 
     def get_cv_blocks(self, num_blocks, num_folds):
         blocks = np.arange(num_blocks)
@@ -110,9 +127,9 @@ class BehaviorFits:
         best_vals = []
         self.trt = trt
 
-        for i in range(100):
+        for i in range(1):
             study = optuna.create_study()
-            study.optimize(self.get_optuna_objective, n_trials=100)
+            study.optimize(self.get_optuna_objective, n_trials=50)
             best_params.append(study.best_params)
             best_vals.append(study.best_value)
 
@@ -124,13 +141,22 @@ class BehaviorFits:
         return best_params, best_vals
 
     def fit_behavior(self):
+        folder_name = 'results/' + self.model_name + "_" + str(
+            self.experiment) + "/"
+        if not os.path.exists(folder_name):
+            os.makedirs(folder_name)
+
+        file_name = folder_name + str(self.subject_id) + ".pkl"
+        if os.path.exists(file_name):
+            return None, None
+
         params, fits = self.fit_optuna()
 
         model_fits = {}
         model_fits['fits'] = fits
         model_fits['params'] = params
 
-        file = open('results/' + model_name + "_" + str(self.experiment) + "/" + str(subject_id) + ".pkl", "wb")
+        file = open(folder_name + str(subject_id) + ".pkl", "wb")
         pickle.dump(model_fits, file)
         file.close()
 
@@ -176,9 +202,11 @@ class BehaviorFits:
 
 if __name__ == "__main__":
 
-    experiment = 1
+    experiment = 4
 
-    subject_num = int(sys.argv[1])
+    #subject_num = int(sys.argv[1])
+
+    subject_num = 2
 
     subject_names = get_experiment_subjects(experiment)
 
@@ -187,6 +215,9 @@ if __name__ == "__main__":
     print(subject_id)
 
     model_name = "momentum"
+    model_name = "prospective"
+    #model_name = "td_persistence"
+    #model_name = "hybrid_mp"
 
     modelopt_t = BehaviorFits(experiment=experiment, subject_id=subject_id, \
                               model_name=model_name)

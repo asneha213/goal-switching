@@ -39,7 +39,7 @@ def plot_performance_instructions(axs=None, cache=False):
     ylim = [0, 25]
 
     plot_comparative_bar_plot(axs, data_, mean_values, std_values,  conditions, models,title=None,
-                              ylim= ylim, ylabel="Number of suits", legend=True)
+                              ylim= ylim, ylabel="Number of suits", legend=True, legend_font=11, bar_width=0.15)
 
     if show:
         plt.tight_layout()

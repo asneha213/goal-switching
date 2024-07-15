@@ -6,7 +6,11 @@ from .retrospective import Retrospective
 from .prospective_dl import ProspectiveDL
 from .prospective_momentum import ProspectiveMomentum
 from .prospective_dl_momentum import ProspectiveDLMomentum
+from .rescorla import Rescorla
+from .hybrid_mp import HybridMP
 
+from .prospective_rates import ProspectiveRates
+from .momentum_rates import MomentumRates
 
 
 import sys
@@ -34,6 +38,15 @@ def get_model(model_name, params):
         return ProspectiveMomentum(params)
     elif model_name == "prospective_dl_momentum":
         return ProspectiveDLMomentum(params)
+    elif model_name == "rescorla":
+        return Rescorla(params)
+    elif model_name == "hybrid_mp":
+        return HybridMP(params)
+
+    elif model_name == "prospective_rates":
+        return ProspectiveRates(params)
+    elif model_name == "momentum_rates":
+        return MomentumRates(params)
 
     else:
         raise Exception("Model not found")

@@ -1,5 +1,5 @@
 from analysis.models import *
-from analysis.behavior import SubjectMeasure
+from analysis.behavior import SubjectMeasure, SubjectMeasureRates
 
 import numpy as np
 import optuna
@@ -42,7 +42,7 @@ class ModelOptimizer:
     def fit_optuna(self):
         best_params = []
         best_vals = []
-        for i in range(5):
+        for i in range(1):
             study = optuna.create_study()
             study.optimize(self.get_optuna_objective, n_trials=50)
             best_params.append(study.best_params)
@@ -52,7 +52,7 @@ class ModelOptimizer:
         best_vals = np.array(best_vals)
         best_params = best_params[np.argmin(best_vals)]
         best_vals = np.min(best_vals)
-        print(best_vals, best_params)
+        print(best_vals)
         return best_params, best_vals
 
     def get_model_optimal_params(self):
@@ -76,13 +76,21 @@ class ModelOptimizer:
         elif self.experiment == 2:
             num_sims = 50
 
+        elif self.experiment == 3:
+            num_sims = 30
+        elif self.experiment == 4:
+            num_sims = 30
+
         elif self.experiment == "normative":
             num_sims = 10
 
         for seed in range(num_sims):
             model = get_model(self.model_name, params)
             model_res = model.run_model(experiment=self.experiment, seed=seed)
-            measures = SubjectMeasure(subject_id=seed, experiment=self.experiment, model_res=model_res)
+            if self.experiment == 3:
+                measures = SubjectMeasureRates(subject_id=seed, experiment=self.experiment, model_res=model_res)
+            else:
+                measures = SubjectMeasure(subject_id=seed, experiment=self.experiment, model_res=model_res)
             if measure_name in ['switches_actions', 'switches_probes', 'num_goals' ]:
                 sub_measure = measures.get_sum_measure_condition(measure_name)
             elif measure_name == "retro_value_count":
@@ -94,9 +102,45 @@ class ModelOptimizer:
 
 
 if __name__ == "__main__":
-    experiment = 1
+    experiment = 4
 
     model_name = "momentum"
+    model_name = "td_persistence"
+    #model_name = "prospective"
+    #model_name = "retrospective"
+    #model_name = "prospective_rates"
+    #model_name = "momentum_rates"
     res = ModelOptimizer(experiment, model_name).get_model_optimal_params()
     print(res)
 
+    #model_name = "rescorla"
+    # model_name = "prospective_rates"
+    #model_name = "momentum_rates"
+
+    #
+    # measure_name = "retro_value"
+    # params = [0.4, 0.2, 1, 10, 10, 0.9]
+    # res = ModelOptimizer(experiment, model_name).simulate_params(\
+    #     params=params, measure_name=measure_name)
+    # print(np.sum(np.mean(res, axis=0)))
+    # print(np.mean(res, axis=0))
+    # #print(res)
+    # #
+    #
+    # model_name = "momentum"
+    #
+    # params = [0.4, 0.2, -1, 3, 10, 0.9]
+    # res = ModelOptimizer(experiment, model_name).simulate_params( \
+    #     params=params, measure_name=measure_name)
+    # print(np.sum(np.mean(res, axis=0)))
+    # print(np.mean(res, axis=0))
+    # #print(res)
+    # #
+    #
+    # model_name = "td_persistence"
+    #
+    # params = [0.4, 0.2, -1, 7, 3, 0.9]
+    # res = ModelOptimizer(experiment, model_name).simulate_params( \
+    #     params=params, measure_name=measure_name)
+    # print(np.sum(np.mean(res, axis=0)))
+    # print(np.mean(res, axis=0))
