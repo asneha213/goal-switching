@@ -1,0 +1,13 @@
+{
+    "time_start": 0,
+    "date": "6/28/2024",
+    "time": "12:22:27 PM",
+    "subjectID": "23",
+    "studyID": "1",
+    "consent": {
+        "no_box": false,
+        "yes_box": true
+    },
+    "date_start": "2024-06-28T19:22:24.273000+00:00",
+    "sessionID": "1"
+}

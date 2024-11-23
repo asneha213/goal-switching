@@ -1,0 +1,62 @@
+{
+    "time_start": 0,
+    "GoalSwitching": {
+        "0": {
+            "trial_1": {
+                "cardflip_rt": 814.8000000000466,
+                "cardselect": "B2",
+                "38": "C1",
+                "P": 2,
+                "37": "B2",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "tokens_received": 9,
+                "cardflip_key_press": 37,
+                "C": 8,
+                "B": 6,
+                "condition": 0
+            },
+            "reward_trials": [
+                0
+            ],
+            "targets": [
+                "p"
+            ],
+            "trial_0": {
+                "cardflip_rt": 902.3000000000466,
+                "cardselect": "P2",
+                "38": "B1",
+                "P": 2,
+                "37": "C1",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 23,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "p",
+                "tokens_received": 1,
+                "cardflip_key_press": 39,
+                "C": 8,
+                "B": 6,
+                "condition": 0
+            }
+        }
+    },
+    "date": "7/1/2024",
+    "time": "9:27:11 AM",
+    "subjectID": 1069674,
+    "studyID": 1,
+    "consent": {
+        "no_box": false,
+        "yes_box": true
+    },
+    "date_start": "2024-07-01T16:27:09.286000+00:00",
+    "sessionID": 1,
+    "bonus": 1
+}

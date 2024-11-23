@@ -1,0 +1,2996 @@
+{
+    "Instructions_Quiz3": {
+        "rt": 6983.199999988079,
+        "response": "{\"Q0\":[\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/car2.png' alt='' class='card'/>KEY</div>\",\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/car1.jpg' alt='' class='card'/>LUGGAGE</div>\"]}"
+    },
+    "subjectID": "6661b7808dd1cb864550c052",
+    "Instructions1": {
+        "rt": 650040.0999999642,
+        "view_history": "[{\"page_index\":0,\"viewing_time\":15151.899999976158},{\"page_index\":1,\"viewing_time\":573575.8999999762},{\"page_index\":2,\"viewing_time\":14793.5},{\"page_index\":3,\"viewing_time\":27180.5},{\"page_index\":4,\"viewing_time\":10474.100000023842},{\"page_index\":5,\"viewing_time\":4031.899999976158},{\"page_index\":6,\"viewing_time\":2679.800000011921},{\"page_index\":7,\"viewing_time\":2151.900000035763}]"
+    },
+    "date_start": "2024-07-01T19:11:32.975000+00:00",
+    "sessionID": "6682f8572bc618f2c5538054",
+    "Instructions2": {
+        "rt": 257066.39999997616,
+        "view_history": "[{\"page_index\":0,\"viewing_time\":112317.89999997616},{\"page_index\":1,\"viewing_time\":78884.19999998808},{\"page_index\":2,\"viewing_time\":13522.100000023842},{\"page_index\":3,\"viewing_time\":10088},{\"page_index\":4,\"viewing_time\":18169.899999976158},{\"page_index\":5,\"viewing_time\":2210.5},{\"page_index\":6,\"viewing_time\":17849.30000001192},{\"page_index\":7,\"viewing_time\":4024.100000023842}]"
+    },
+    "time_start": 0,
+    "Instructions_Quiz2": {
+        "rt": 11320,
+        "response": "{\"Q0\":\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/hat2.jpeg' alt='' class='card'/>WARDROBE</div>\"}"
+    },
+    "date": "1.07.2024",
+    "Instructions3": {
+        "rt": 65171.30000001192,
+        "view_history": "[{\"page_index\":0,\"viewing_time\":31671.100000023842},{\"page_index\":1,\"viewing_time\":31244.30000001192},{\"page_index\":2,\"viewing_time\":2255.599999964237}]"
+    },
+    "time": "21:11:37",
+    "Instructions_Quiz4": {
+        "rt": 26289,
+        "response": "{\"Q0\":\"CAR, HAT, CAR are available with different chances in different blocks\"}"
+    },
+    "Instructions4": {
+        "rt": 19393.30000001192,
+        "view_history": "[{\"page_index\":0,\"viewing_time\":18592.5},{\"page_index\":1,\"viewing_time\":800.4000000357628}]"
+    },
+    "Instructions_Quiz1": {
+        "rt": 30541.099999964237,
+        "response": "{\"Q0\":[\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/cat1.png' alt='' class='card'/>BASKET</div>\",\"<div style='width:150px;height:150px;border:1px solid #000;display: inline-block;'><img src='static/images/cat2.png' alt='' class='card'/>MAT</div>\"]}"
+    },
+    "GoalSwitching": {
+        "0": {
+            "trial_29": {
+                "37": "C1",
+                "cardflip_rt": 874,
+                "38": "B2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "P1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 981.3000000119209,
+                "condition": 0
+            },
+            "trial_2": {
+                "37": "C2",
+                "cardflip_rt": 1024.4000000357628,
+                "38": "B2",
+                "P": 0.25,
+                "slots": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 3
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "C2",
+                "P_T": 4,
+                "cardflip": "C2",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 2
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "probe_keypress": 38,
+                "probe_rt": 948.3000000119209,
+                "condition": 0
+            },
+            "trial_19": {
+                "37": "C2",
+                "cardflip_rt": 795.8000000119209,
+                "38": "P2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 3,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "B2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 3,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_0": {
+                "37": "P1",
+                "cardflip_rt": 6129,
+                "38": "B1",
+                "P": 0.25,
+                "slots": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 1
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "C2",
+                "P_T": 4,
+                "cardflip": "C2",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_1": {
+                "37": "B2",
+                "cardflip_rt": 1355,
+                "38": "C2",
+                "P": 0.25,
+                "slots": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 2
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "C2",
+                "P_T": 4,
+                "cardflip": "C2",
+                "39": "P1",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 1
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_26": {
+                "37": "B2",
+                "cardflip_rt": 3841.399999976158,
+                "38": "P2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 6,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 6,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 1538.5,
+                "condition": 0
+            },
+            "reward_trials": [
+                5
+            ],
+            "trial_18": {
+                "37": "P1",
+                "cardflip_rt": 1861.4000000357628,
+                "38": "B2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 3,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 3,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_24": {
+                "37": "P2",
+                "cardflip_rt": 1417.5,
+                "38": "C1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 6,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "B2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 5,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_14": {
+                "37": "C1",
+                "cardflip_rt": 1624.699999988079,
+                "38": "P2",
+                "P": 0.25,
+                "slots": {
+                    "p": 0,
+                    "b": 2,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "B2",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 2,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 1665.8999999761581,
+                "condition": 0
+            },
+            "trial_5": {
+                "37": "C1",
+                "cardflip_rt": 1090.1000000238419,
+                "38": "P1",
+                "P": 0.25,
+                "slots": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "c",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "B2",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 5
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "probe_keypress": 38,
+                "probe_rt": 958.1000000238419,
+                "condition": 0
+            },
+            "trial_3": {
+                "37": "B2",
+                "cardflip_rt": 2974.699999988079,
+                "38": "C1",
+                "P": 0.25,
+                "slots": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 4
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 3
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_4": {
+                "37": "B1",
+                "cardflip_rt": 432.39999997615814,
+                "38": "C1",
+                "P": 0.25,
+                "slots": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 5
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 4
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_27": {
+                "37": "B1",
+                "cardflip_rt": 1794.6000000238419,
+                "38": "C1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 6,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "P1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 6,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_28": {
+                "37": "C2",
+                "cardflip_rt": 795.5,
+                "38": "P1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "B2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 6,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_16": {
+                "37": "P1",
+                "cardflip_rt": 2683,
+                "38": "C1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 3,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "B2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 2,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_10": {
+                "37": "B1",
+                "cardflip_rt": 995.0999999642372,
+                "38": "P1",
+                "P": 0.25,
+                "slots": {
+                    "p": 0,
+                    "b": 2,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 1,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_13": {
+                "37": "C1",
+                "cardflip_rt": 3945.5,
+                "38": "B2",
+                "P": 0.25,
+                "slots": {
+                    "p": 0,
+                    "b": 2,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "P1",
+                "P_T": 4,
+                "cardflip": "P1",
+                "39": "P1",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 2,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_6": {
+                "37": "P2",
+                "cardflip_rt": 24392.099999964237,
+                "38": "B1",
+                "P": 0.25,
+                "slots": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "P2",
+                "P_T": 4,
+                "cardflip": "P2",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_15": {
+                "37": "C2",
+                "cardflip_rt": 3575.199999988079,
+                "38": "B2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 2,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "p",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "P1",
+                "P_T": 4,
+                "cardflip": "P1",
+                "39": "P1",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 2,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_12": {
+                "37": "C2",
+                "cardflip_rt": 2715.7000000476837,
+                "38": "P2",
+                "P": 0.25,
+                "slots": {
+                    "p": 0,
+                    "b": 2,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 2,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "targets": [
+                "c"
+            ],
+            "trial_17": {
+                "37": "B1",
+                "cardflip_rt": 7094.300000011921,
+                "38": "P2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 3,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 3,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 2545.599999964237,
+                "condition": 0
+            },
+            "trial_22": {
+                "37": "C1",
+                "cardflip_rt": 747.3999999761581,
+                "38": "P2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 4,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "B2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 4,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_11": {
+                "37": "C2",
+                "cardflip_rt": 757.5999999642372,
+                "38": "P1",
+                "P": 0.25,
+                "slots": {
+                    "p": 0,
+                    "b": 2,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 2,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 1319,
+                "condition": 0
+            },
+            "trial_25": {
+                "37": "P1",
+                "cardflip_rt": 1030.8999999761581,
+                "38": "B1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 6,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 6,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_21": {
+                "37": "C2",
+                "cardflip_rt": 1502,
+                "38": "B1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 4,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "P1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 3,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_9": {
+                "37": "B2",
+                "cardflip_rt": 5449.399999976158,
+                "38": "C2",
+                "P": 0.25,
+                "slots": {
+                    "p": 0,
+                    "b": 1,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_7": {
+                "37": "C1",
+                "cardflip_rt": 3961,
+                "38": "B1",
+                "P": 0.25,
+                "slots": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "P1",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_20": {
+                "37": "B1",
+                "cardflip_rt": 910.5,
+                "38": "C1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 3,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "P1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 3,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 1092.8999999761581,
+                "condition": 0
+            },
+            "trial_23": {
+                "37": "C2",
+                "cardflip_rt": 733.9000000357628,
+                "38": "P2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 5,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 4,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 532.7999999523163,
+                "condition": 0
+            },
+            "trial_8": {
+                "37": "C1",
+                "cardflip_rt": 483.80000001192093,
+                "38": "B1",
+                "P": 0.25,
+                "slots": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.5,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 2904.699999988079,
+                "condition": 0
+            }
+        },
+        "3": {
+            "reward_trials": [
+                7
+            ],
+            "trial_2": {
+                "37": "C2",
+                "cardflip_rt": 4561,
+                "38": "B1",
+                "P": 0.33,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 3
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.65,
+                "cardselect": "C2",
+                "P_T": 4,
+                "cardflip": "C2",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 2
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "probe_keypress": 38,
+                "probe_rt": 854.8999999761581,
+                "condition": 1
+            },
+            "trial_5": {
+                "37": "C2",
+                "cardflip_rt": 855.3000000119209,
+                "38": "P1",
+                "P": 0.33,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 4
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.65,
+                "cardselect": "C2",
+                "P_T": 4,
+                "cardflip": "C2",
+                "39": "B2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 3
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "probe_keypress": 38,
+                "probe_rt": 853.1999999880791,
+                "condition": 1
+            },
+            "trial_1": {
+                "37": "P1",
+                "cardflip_rt": 9066.300000011921,
+                "38": "B1",
+                "P": 0.33,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 2
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.65,
+                "cardselect": "P1",
+                "P_T": 4,
+                "cardflip": "P1",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 2
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 1
+            },
+            "trial_7": {
+                "37": "B1",
+                "cardflip_rt": 695.0999999642372,
+                "38": "P2",
+                "P": 0.33,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "c",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.65,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 5
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 1
+            },
+            "trial_0": {
+                "37": "C2",
+                "cardflip_rt": 17480.69999998808,
+                "38": "P2",
+                "P": 0.33,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 2
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.65,
+                "cardselect": "C2",
+                "P_T": 4,
+                "cardflip": "C2",
+                "39": "B2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 1
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 1
+            },
+            "trial_6": {
+                "37": "B2",
+                "cardflip_rt": 2106.7000000476837,
+                "38": "C1",
+                "P": 0.33,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 5
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.65,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 4
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 1
+            },
+            "trial_4": {
+                "37": "P1",
+                "cardflip_rt": 951.4000000357628,
+                "38": "C2",
+                "P": 0.33,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 3
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.65,
+                "cardselect": "C2",
+                "P_T": 4,
+                "cardflip": "C2",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 3
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 1
+            },
+            "trial_3": {
+                "37": "P1",
+                "cardflip_rt": 3089.5,
+                "38": "C1",
+                "P": 0.33,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 3
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.75,
+                "B": 0.65,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "B2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 3
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 1
+            },
+            "targets": [
+                "c"
+            ]
+        },
+        "1": {
+            "trial_29": {
+                "37": "B2",
+                "cardflip_rt": 921.7999999523163,
+                "38": "C1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "P2",
+                "P_T": 4,
+                "cardflip": "P2",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "probe_keypress": 37,
+                "probe_rt": 1112.7000000476837,
+                "condition": 0
+            },
+            "trial_2": {
+                "37": "C2",
+                "cardflip_rt": 1035.5,
+                "38": "P2",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 1062.2999999523163,
+                "condition": 0
+            },
+            "trial_19": {
+                "37": "C1",
+                "cardflip_rt": 1014.3999999761581,
+                "38": "P1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 5
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 5
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_0": {
+                "37": "B1",
+                "cardflip_rt": 2084.199999988079,
+                "38": "C1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "P1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_1": {
+                "37": "P2",
+                "cardflip_rt": 687.1000000238419,
+                "38": "C2",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "B2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_26": {
+                "37": "C2",
+                "cardflip_rt": 5068.800000011921,
+                "38": "P1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "P1",
+                "P_T": 4,
+                "cardflip": "P1",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "probe_keypress": 38,
+                "probe_rt": 1596.7000000476837,
+                "condition": 0
+            },
+            "reward_trials": [
+                4,
+                20,
+                24
+            ],
+            "trial_18": {
+                "37": "P1",
+                "cardflip_rt": 1081.4000000357628,
+                "38": "C1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 5
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "B2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 5
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_24": {
+                "37": "B2",
+                "cardflip_rt": 3953.400000035763,
+                "38": "C2",
+                "P": 0.5,
+                "slots": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "p",
+                "execute": 1,
+                "current_token": "p",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "P2",
+                "P_T": 4,
+                "cardflip": "P2",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 3,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_14": {
+                "37": "P1",
+                "cardflip_rt": 611.9000000357628,
+                "38": "C1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 4
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "B2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 3
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "probe_keypress": 38,
+                "probe_rt": 636.9000000357628,
+                "condition": 0
+            },
+            "trial_5": {
+                "37": "B2",
+                "cardflip_rt": 778.8999999761581,
+                "38": "P1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "probe_keypress": 37,
+                "probe_rt": 866.5,
+                "condition": 0
+            },
+            "trial_3": {
+                "37": "P2",
+                "cardflip_rt": 634,
+                "38": "C1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "B2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_4": {
+                "37": "P1",
+                "cardflip_rt": 588.8999999761581,
+                "38": "B2",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "b",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_27": {
+                "37": "C1",
+                "cardflip_rt": 84.39999997615814,
+                "38": "P1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "P1",
+                "P_T": 4,
+                "cardflip": "P1",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_28": {
+                "37": "C1",
+                "cardflip_rt": 2164.300000011921,
+                "38": "P2",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "P2",
+                "P_T": 4,
+                "cardflip": "P2",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_16": {
+                "37": "B1",
+                "cardflip_rt": 898.3000000119209,
+                "38": "P2",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 5
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 4
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_10": {
+                "37": "C2",
+                "cardflip_rt": 2206.800000011921,
+                "38": "B2",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 2
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "C2",
+                "P_T": 4,
+                "cardflip": "C2",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 1
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_13": {
+                "37": "C2",
+                "cardflip_rt": 1726.699999988079,
+                "38": "P2",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 3
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "C2",
+                "P_T": 4,
+                "cardflip": "C2",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 3
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_6": {
+                "37": "C2",
+                "cardflip_rt": 4513.5,
+                "38": "P1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "C2",
+                "P_T": 4,
+                "cardflip": "C2",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_15": {
+                "37": "B2",
+                "cardflip_rt": 790.5,
+                "38": "C1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 4
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 4
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_12": {
+                "37": "B1",
+                "cardflip_rt": 3483.7999999523163,
+                "38": "C1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 3
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "P1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 3
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "targets": [
+                "b",
+                "c",
+                "p"
+            ],
+            "trial_17": {
+                "37": "P1",
+                "cardflip_rt": 929.6000000238419,
+                "38": "B1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 5
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "C2",
+                "P_T": 4,
+                "cardflip": "C2",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 5
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "probe_keypress": 38,
+                "probe_rt": 816.1999999880791,
+                "condition": 0
+            },
+            "trial_22": {
+                "37": "B2",
+                "cardflip_rt": 670.1999999880791,
+                "38": "P2",
+                "P": 0.5,
+                "slots": {
+                    "p": 3,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "p",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "P2",
+                "P_T": 4,
+                "cardflip": "P2",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 2,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_11": {
+                "37": "P1",
+                "cardflip_rt": 1647.5999999642372,
+                "38": "B2",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 3
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "C2",
+                "P_T": 4,
+                "cardflip": "C2",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 2
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "probe_keypress": 38,
+                "probe_rt": 741,
+                "condition": 0
+            },
+            "trial_25": {
+                "37": "C2",
+                "cardflip_rt": 3098.800000011921,
+                "38": "P2",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "p",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "P2",
+                "P_T": 4,
+                "cardflip": "P2",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 0,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_21": {
+                "37": "P2",
+                "cardflip_rt": 5782,
+                "38": "B2",
+                "P": 0.5,
+                "slots": {
+                    "p": 2,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "p",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "P2",
+                "P_T": 4,
+                "cardflip": "P2",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_7": {
+                "37": "P2",
+                "cardflip_rt": 3736.900000035763,
+                "38": "C1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "P2",
+                "P_T": 4,
+                "cardflip": "P2",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_9": {
+                "37": "P2",
+                "cardflip_rt": 4850.399999976158,
+                "38": "C1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 1
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 1
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_20": {
+                "37": "B2",
+                "cardflip_rt": 1476.5,
+                "38": "P1",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "c",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "C2",
+                "P_T": 4,
+                "cardflip": "C2",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 5
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "probe_keypress": 38,
+                "probe_rt": 963.6000000238419,
+                "condition": 0
+            },
+            "trial_23": {
+                "37": "P2",
+                "cardflip_rt": 814.3999999761581,
+                "38": "B1",
+                "P": 0.5,
+                "slots": {
+                    "p": 3,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "P2",
+                "P_T": 4,
+                "cardflip": "P2",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 3,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "probe_keypress": 37,
+                "probe_rt": 769.2000000476837,
+                "condition": 0
+            },
+            "trial_8": {
+                "37": "P1",
+                "cardflip_rt": 753.3999999761581,
+                "38": "C2",
+                "P": 0.5,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 1
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.5,
+                "cardselect": "C2",
+                "P_T": 4,
+                "cardflip": "C2",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "probe_keypress": 38,
+                "probe_rt": 820.9000000357628,
+                "condition": 0
+            }
+        },
+        "2": {
+            "trial_29": {
+                "37": "B2",
+                "cardflip_rt": 837.8999999761581,
+                "38": "P2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 1
+                },
+                "slot_status": "b",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 1
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 1959.2000000476837,
+                "condition": 0
+            },
+            "trial_2": {
+                "37": "P1",
+                "cardflip_rt": 1593,
+                "38": "C2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 2,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 1,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 1520.300000011921,
+                "condition": 0
+            },
+            "trial_19": {
+                "37": "C1",
+                "cardflip_rt": 580.6000000238419,
+                "38": "P2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 1,
+                    "c": 1
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "c",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 1,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_0": {
+                "37": "C1",
+                "cardflip_rt": 11954.600000023842,
+                "38": "B1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "P1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_1": {
+                "37": "P2",
+                "cardflip_rt": 826.6999999880791,
+                "38": "B1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 1,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_26": {
+                "37": "P1",
+                "cardflip_rt": 806.8000000119209,
+                "38": "B2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 5,
+                    "c": 1
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 4,
+                    "c": 1
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 900.2000000476837,
+                "condition": 0
+            },
+            "reward_trials": [
+                9,
+                29
+            ],
+            "trial_18": {
+                "37": "C2",
+                "cardflip_rt": 1069.6000000238419,
+                "38": "P1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 1,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "P1",
+                "P_T": 4,
+                "cardflip": "P1",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 1,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_24": {
+                "37": "P1",
+                "cardflip_rt": 1814.199999988079,
+                "38": "B1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 3,
+                    "c": 1
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 2,
+                    "c": 1
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_14": {
+                "37": "B1",
+                "cardflip_rt": 1406.8999999761581,
+                "38": "P2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "C2",
+                "P_T": 4,
+                "cardflip": "C2",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "probe_keypress": 38,
+                "probe_rt": 1404.5,
+                "condition": 0
+            },
+            "trial_5": {
+                "37": "B2",
+                "cardflip_rt": 727.8000000119209,
+                "38": "P1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 5,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 4,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 899.8999999761581,
+                "condition": 0
+            },
+            "trial_3": {
+                "37": "B1",
+                "cardflip_rt": 758.5,
+                "38": "C2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 3,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 2,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_4": {
+                "37": "B2",
+                "cardflip_rt": 3662.5,
+                "38": "P2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 4,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 3,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_27": {
+                "37": "C2",
+                "cardflip_rt": 650.8999999761581,
+                "38": "B1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 6,
+                    "c": 1
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "P1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 5,
+                    "c": 1
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_28": {
+                "37": "B2",
+                "cardflip_rt": 1203.2000000476837,
+                "38": "P2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 1
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 6,
+                    "c": 1
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_16": {
+                "37": "B2",
+                "cardflip_rt": 845.6999999880791,
+                "38": "C2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 1,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_10": {
+                "37": "C2",
+                "cardflip_rt": 1812.800000011921,
+                "38": "B2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "P2",
+                "P_T": 4,
+                "cardflip": "P2",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_13": {
+                "37": "C2",
+                "cardflip_rt": 1293.2000000476837,
+                "38": "B2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "P1",
+                "P_T": 4,
+                "cardflip": "P1",
+                "39": "P1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_6": {
+                "37": "P1",
+                "cardflip_rt": 1048.699999988079,
+                "38": "B2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 5,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 5,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_15": {
+                "37": "C1",
+                "cardflip_rt": 3968.900000035763,
+                "38": "B1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_12": {
+                "37": "B2",
+                "cardflip_rt": 4952.800000011921,
+                "38": "C1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "P1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "targets": [
+                "b",
+                "b"
+            ],
+            "trial_17": {
+                "37": "B2",
+                "cardflip_rt": 577.0999999642372,
+                "38": "P1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 1,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 1,
+                    "c": 0
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 270.2000000476837,
+                "condition": 0
+            },
+            "trial_22": {
+                "37": "C1",
+                "cardflip_rt": 287.69999998807907,
+                "38": "B2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 2,
+                    "c": 1
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 1,
+                    "c": 1
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_11": {
+                "37": "B1",
+                "cardflip_rt": 5718,
+                "38": "P1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "P1",
+                "P_T": 4,
+                "cardflip": "P1",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "probe_keypress": 37,
+                "probe_rt": 1759.800000011921,
+                "condition": 0
+            },
+            "trial_25": {
+                "37": "P2",
+                "cardflip_rt": 559.9000000357628,
+                "38": "B1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 4,
+                    "c": 1
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "C2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 3,
+                    "c": 1
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_21": {
+                "37": "P1",
+                "cardflip_rt": 997.5,
+                "38": "C2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 1,
+                    "c": 1
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "B2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 1,
+                    "c": 1
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_7": {
+                "37": "P2",
+                "cardflip_rt": 716.5,
+                "38": "B2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 6,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 5,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_9": {
+                "37": "C1",
+                "cardflip_rt": 2173.399999976158,
+                "38": "P1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 0,
+                    "c": 0
+                },
+                "slot_status": "b",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "B1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 0
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "condition": 0
+            },
+            "trial_20": {
+                "37": "B1",
+                "cardflip_rt": 855.0999999642372,
+                "38": "P1",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 1,
+                    "c": 1
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "C1",
+                "P_T": 4,
+                "cardflip": "C1",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 1,
+                    "c": 1
+                },
+                "cardflip_key_press": 39,
+                "B_T": 8,
+                "probe_keypress": 37,
+                "probe_rt": 2233.600000023842,
+                "condition": 0
+            },
+            "trial_23": {
+                "37": "B1",
+                "cardflip_rt": 1780.199999988079,
+                "38": "C2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 2,
+                    "c": 1
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "e",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B1",
+                "P_T": 4,
+                "cardflip": "B1",
+                "39": "P2",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 2,
+                    "c": 1
+                },
+                "cardflip_key_press": 37,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 1285,
+                "condition": 0
+            },
+            "trial_8": {
+                "37": "P2",
+                "cardflip_rt": 432,
+                "38": "B2",
+                "P": 0.25,
+                "slots": {
+                    "p": 1,
+                    "b": 7,
+                    "c": 0
+                },
+                "slot_status": "u",
+                "execute": 1,
+                "current_token": "b",
+                "C_T": 6,
+                "C": 0.4,
+                "B": 0.9,
+                "cardselect": "B2",
+                "P_T": 4,
+                "cardflip": "B2",
+                "39": "C1",
+                "slots_pre": {
+                    "p": 1,
+                    "b": 6,
+                    "c": 0
+                },
+                "cardflip_key_press": 38,
+                "B_T": 8,
+                "probe_keypress": 39,
+                "probe_rt": 917.1000000238419,
+                "condition": 0
+            }
+        }
+    },
+    "studyID": "667f0c410c361902ddcb2531",
+    "consent": {
+        "no_box": false,
+        "yes_box": true
+    },
+    "Instructions5": {
+        "rt": 3875,
+        "view_history": "[{\"page_index\":0,\"viewing_time\":3874.800000011921}]"
+    },
+    "bonus": 8
+}
