@@ -1,12 +1,18 @@
 from .behavior_utils import *
 
 import sys
-sys.path.append("..")
+
+sys.path.append('../')
 
 from .datautils import *
 
+import pickle
 
 def get_measure_experiment(experiment, measure_name, mode="condition"):
+    """
+    Get aggregate behavioral measure across all participants in an experiment
+    """
+
     sub_measures = []
     subject_names = get_experiment_subjects(experiment)
     for subject_num in range(len(subject_names)):
@@ -21,6 +27,7 @@ def get_measure_experiment(experiment, measure_name, mode="condition"):
             measure = subject_measures.get_individual_measure(measure_name)
         sub_measures.append(measure)
     return np.array(sub_measures)
+
 
 
 class SubjectMeasure:
@@ -63,19 +70,20 @@ class SubjectMeasure:
             measures[block_num]['optimal_action'] = self.get_retro_valuation_factor(block_num, mode="prob")
             measures[block_num]['obvious_choice'] = self.get_retro_valuation_factor(block_num, mode="slot", diverge=False)
 
-            measures[block_num]['switches_probes'] = self.get_goal_switches_across_probes(block_num)
-            measures[block_num]['switches_blocks'] = self.get_goal_switches_across_blocks(block_num)
-            measures[block_num]['switches_actions'] = self.get_action_switches(block_num)
             measures[block_num]['condition_action'] = self.get_condition_max_action(block_num)
             measures[block_num]['condition_action_first'] = self.get_condition_max_action(block_num, half='first')
             measures[block_num]['condition_action_second'] = self.get_condition_max_action(block_num, half='second')
 
             measures[block_num]['switches_completion'] = self.get_switches_after_completion(block_num)
+            measures[block_num]['switches_probes'] = self.get_goal_switches_across_probes(block_num)
+            measures[block_num]['switches_blocks'] = self.get_goal_switches_across_blocks(block_num)
+            measures[block_num]['switches_actions'] = self.get_action_switches(block_num)
 
 
         return measures
 
     def get_measure_condition(self, measure_name):
+
         measures = self.block_measures
         measure_condition = np.zeros((self.num_conditions, int(len(self.blocks.keys())/ self.num_conditions)))
         counts = np.zeros(self.num_conditions)
@@ -134,7 +142,9 @@ class SubjectMeasure:
 
     def get_task_performance(self):
         total_rewards = 0
-        for block_num in list(self.blocks.keys()):
+        block_keys = list(self.blocks.keys())
+        block_keys = sorted(block_keys, key=lambda x: int(x))
+        for block_num in block_keys:
             block = self.blocks[str(block_num)]
 
             if 'reward_trials' not in block:
@@ -211,7 +221,9 @@ class SubjectMeasure:
         retro_values = np.zeros((self.num_conditions, 7))
         counts = np.zeros((self.num_conditions, 7))
 
-        for block_num in self.blocks.keys():
+        block_keys = list(self.blocks.keys())
+        block_keys = sorted(block_keys, key=lambda x: int(x))
+        for block_num in block_keys:
             for trial_num in range(self.num_trials):
 
                 if half == "first":
@@ -300,7 +312,9 @@ class SubjectMeasure:
         retro_values = np.zeros((self.num_conditions, 7))
         counts = np.zeros((self.num_conditions, 7))
 
-        for block_num in self.blocks.keys():
+        block_keys = list(self.blocks.keys())
+        block_keys = sorted(block_keys, key=lambda x: int(x))
+        for block_num in block_keys:
             for trial_num in range(self.num_trials):
                 if half == "first":
                     if trial_num >= self.num_trials / 2:
@@ -314,21 +328,20 @@ class SubjectMeasure:
 
                 slots = trial['slots_pre']
                 slots_arr = np.array([slots['p'], slots['c'], slots['b']])
-                if self.experiment !=  4:
-                    max_prob_token = ['p', 'c', 'b'][np.argmax(probs)]
-                    max_slot_token = ['p', 'c', 'b'][np.argmax(slots_arr)]
-                    next_best_token = ['p', 'c', 'b'][
-                        find_second_highest_index(slots_arr)]
-                else:
-                    progress = {'p': slots['p'] / trial['P_T'],
-                                'c': slots['c'] / trial['C_T'],
-                                'b': slots['b'] / trial['B_T']}
-                    targets = np.array(
-                        [trial['P_T'], trial['C_T'], trial['B_T']])
-                    max_prob_token = ['p', 'c', 'b'][np.argmin(targets / probs)]
-                    max_slot_token = ['p', 'c', 'b'][
-                        np.argmax(list(progress.values()))]
-                    next_best_token = ['p', 'c', 'b'][find_second_highest_index(list(progress.values()))]
+                if self.experiment != 4:
+                    trial['P_T'] = 7
+                    trial['C_T'] = 7
+                    trial['B_T'] = 7
+
+                progress = {'p': slots['p'] / trial['P_T'],
+                            'c': slots['c'] / trial['C_T'],
+                            'b': slots['b'] / trial['B_T']}
+                targets = np.array(
+                    [trial['P_T'], trial['C_T'], trial['B_T']])
+                max_prob_token = ['p', 'c', 'b'][np.argmin(targets / probs)]
+                max_slot_token = ['p', 'c', 'b'][
+                    np.argmax(list(progress.values()))]
+                next_best_token = ['p', 'c', 'b'][find_second_highest_index(list(progress.values()))]
 
                 if np.max(slots_arr) == 0:
                     continue
@@ -342,16 +355,10 @@ class SubjectMeasure:
 
                 cardselect = trial['cardselect'][0].lower()
 
-                if self.experiment != 4:
-                    if diverge:
-                        progress_diff = slots[max_slot_token] - slots[max_prob_token]
-                    else:
-                        progress_diff = slots[max_slot_token] - slots[next_best_token]
+                if diverge:
+                    progress_diff = int(np.floor((progress[max_slot_token] - progress[max_prob_token])/0.14))
                 else:
-                    if diverge:
-                        progress_diff = int(np.floor((progress[max_slot_token] - progress[max_prob_token])/0.14))
-                    else:
-                        progress_diff = int(np.floor((progress[max_slot_token] - progress[next_best_token])/0.14))
+                    progress_diff = int(np.floor((progress[max_slot_token] - progress[next_best_token])/0.14))
 
                 counts[condition][progress_diff] += 1
 
@@ -360,45 +367,6 @@ class SubjectMeasure:
 
         return retro_values/ counts
 
-
-
-    def get_chosen_action_rt_per_progress(self):
-        retro_values = np.zeros(7)
-        counts = np.zeros(7)
-
-        for block_num in self.blocks.keys():
-            for trial_num in range(self.num_trials):
-
-                trial = self.blocks[block_num]['trial_' + str(trial_num)]
-                condition = trial['condition']
-                probs = [trial['P'], trial['C'], trial['B']]
-                max_prob_token = ['p', 'c', 'b'][np.argmax(probs)]
-                slots = trial['slots_pre']
-                slots_arr = np.array([slots['p'], slots['c'], slots['b']])
-                max_slot_token = ['p', 'c', 'b'][np.argmax(slots_arr)]
-
-                rt = trial['cardflip_rt']
-
-                if condition == 0:
-                    continue
-
-                if np.max(slots_arr) == 0:
-                    continue
-
-                if max_slot_token == max_prob_token:
-                    continue
-
-                cardselect = trial['cardselect'][0].lower()
-
-
-
-                if cardselect == max_slot_token:
-                    counts[
-                        slots[max_slot_token] - slots[max_prob_token]] += 1
-                    retro_values[
-                        slots[max_slot_token] - slots[max_prob_token]] += rt
-
-        return safe_divide(retro_values, counts)
 
     def get_proportion_divergence_pros_retro(self):
         counts = 0
@@ -560,6 +528,7 @@ class SubjectMeasure:
 
         return safe_divide(slot_switches, slot_counts), safe_divide(prob_switches, prob_counts)
 
+
     def get_condition_max_action(self, block_num, half=None):
         counts = 0
         actions = 0
@@ -586,12 +555,39 @@ class SubjectMeasure:
                 actions += 1
         return actions / counts
 
+
+    def get_condition_max_action_blockwise(self):
+
+        block_keys = list(self.blocks.keys())
+        block_keys = sorted(block_keys, key=lambda x: int(x))
+
+        counts = np.zeros(len(block_keys))
+        actions = np.zeros(len(block_keys))
+
+        for block_num in block_keys:
+            block = self.blocks[str(block_num)]
+            for trial_num in range(self.num_trials):
+                trial = block['trial_' + str(trial_num)]
+                select = trial['cardselect'][0].lower()
+                probs = np.array([trial['P'], trial['C'], trial['B']])
+                if self.experiment != 4:
+                    targets = np.array([7, 7, 7])
+                else:
+                    targets = np.array([trial['P_T'], trial['C_T'], trial['B_T']])
+                max_prob_token = ['p', 'c', 'b'][np.argmin(targets / probs)]
+                counts[int(block_num)] += 1
+                if select == max_prob_token:
+                    actions[int(block_num)] += 1
+        return actions / counts
+
+
     def get_optimal_goal_condition(self):
         goalselects = np.zeros((self.num_conditions, 3, 3))
         counts = np.zeros((self.num_conditions, 3))
 
-
-        for block_num in list(self.blocks.keys()):
+        block_keys = list(self.blocks.keys())
+        block_keys = sorted(block_keys, key=lambda x: int(x))
+        for block_num in block_keys:
             block = self.blocks[str(block_num)]
             for trial_num in range(self.num_trials):
                 trial = block["trial_" + str(trial_num)]
@@ -616,169 +612,50 @@ class SubjectMeasure:
 
         return goalselects, counts
 
-    def get_switches_after_completion(self, block_num):
-        switches = 0
+    def get_goal_action_congruence(self):
+        congruence = 0
         counts = 0
-        if "reward_trials" not in self.blocks[str(block_num)]:
-            return -1
-        reward_trials = self.blocks[str(block_num)]['reward_trials']
+        prev_probe = -1
 
-        for trial_ind in range(len(reward_trials)):
-            trial_num = reward_trials[trial_ind]
+        block_keys = list(self.blocks.keys())
+        block_keys = sorted(block_keys, key=lambda x: int(x))
+        for block_num in block_keys:
             block = self.blocks[str(block_num)]
-            target = block['targets'][trial_ind]
-
-            max_token = ['p', 'c', 'b'][np.argmax([block['trial_' + str(trial_num)]['P'], block['trial_' + str(trial_num)]['C'], block['trial_' + str(trial_num)]['B']])]
-
-            if target != max_token:
-                continue
-
-            if trial_num < 29:
-                trial_a = self.blocks[str(block_num)]['trial_' + str(trial_num + 1)]
-            else:
-                if str(int(block_num) + 1) not in self.blocks:
-                    continue
-                trial_a = self.blocks[str(int(block_num) + 1)]['trial_' + str(0)]
-            cardselect = trial_a['cardselect'][0].lower()
-            counts += 1
-            if cardselect == target:
-                switches += 1
-
-        if counts == 0:
-            return np.nan
-        else:
-            return switches/ counts
-
-    def get_goal_valuation(self, measure='retro_value'):
-        max_prob = np.zeros(self.num_conditions)
-        max_slot = np.zeros(self.num_conditions)
-        other = np.zeros(self.num_conditions)
-        counts = np.zeros(self.num_conditions)
-        for block_num in range(len(self.blocks)):
             for trial_num in range(self.num_trials):
-                trial = self.blocks[str(block_num)]['trial_' + str(trial_num)]
-                condition = trial['condition']
-                probs = [trial['P'], trial['C'], trial['B']]
+                trial = block["trial_" + str(trial_num)]
+                cardflip = trial["cardflip"][0].lower()
+                if prev_probe != -1:
+                    counts += 1
+                    if cardflip == prev_probe:
+                        congruence += 1
+                    prev_probe = -1
 
-                slots = trial['slots_pre']
-                slots_arr = np.array([slots['p'], slots['c'], slots['b']])
+                if "probe_keypress" in trial:
+                    prev_probe = GOAL_PROBE[trial["probe_keypress"]]
 
-                if self.experiment != 4:
-                    max_prob_token = ['p', 'c', 'b'][np.argmax(probs)]
-                    max_slot_token = ['p', 'c', 'b'][np.argmax(slots_arr)]
-                    next_best_token = ['p', 'c', 'b'][
-                        find_second_highest_index(slots_arr)]
-                else:
-                    targets = np.array([trial['P_T'], trial['C_T'], trial['B_T']])
-                    max_prob_token = ['p', 'c', 'b'][np.argmin(targets / probs)]
-                    progress = {'p': slots['p'] / trial['P_T'],
-                                'c': slots['c'] / trial['C_T'],
-                                'b': slots['b'] / trial['B_T']}
-                    max_slot_token = ['p', 'c', 'b'][np.argmax(list(progress.values()))]
-                    next_best_token = ['p', 'c', 'b'][
-                        find_second_highest_index(list(progress.values()))]
-
-                if np.max(slots_arr) == 0:
-                    continue
-
-                if measure == "retro_value":
-                    if max_prob_token == max_slot_token:
-                        continue
-                    cardselect = trial['cardselect'][0].lower()
-                    counts[condition] += 1
-
-                    if cardselect == max_prob_token:
-                        max_prob[condition] += 1
-                    elif cardselect == max_slot_token:
-                        max_slot[condition] += 1
-                    else:
-                        other[condition] += 1
-                else:
-                    if max_prob_token != max_slot_token:
-                        continue
-                    cardselect = trial['cardselect'][0].lower()
-                    counts[condition] += 1
-
-                    if cardselect == max_prob_token:
-                        max_prob[condition] += 1
-                    elif cardselect == next_best_token:
-                        max_slot[condition] += 1
-                    else:
-                        other[condition] += 1
+        return congruence / counts
 
 
+    def get_goal_switches_around_probes(self):
+        all_switches = 0
+        probe_switches = 0
+        prev_action = -1
 
-        return max_prob / counts, max_slot / counts, other / counts
-
-    def get_goal_actions_array(self):
-        choices_p = []
-        choices_c = []
-        choices_b = []
-        for block_num in range(len(self.blocks)):
+        block_keys = list(self.blocks.keys())
+        block_keys = sorted(block_keys, key=lambda x: int(x))
+        for block_num in block_keys:
+            block = self.blocks[str(block_num)]
             for trial_num in range(self.num_trials):
-                trial = self.blocks[str(block_num)]['trial_' + str(trial_num)]
-                if trial['condition'] != 0:
-                    continue
-                cardselect = trial['cardselect'][0].lower()
-                if cardselect == 'p':
-                    choices_p.append(1)
-                    choices_c.append(0)
-                    choices_b.append(0)
-                elif cardselect == 'c':
-                    choices_p.append(0)
-                    choices_c.append(1)
-                    choices_b.append(0)
-                else:
-                    choices_p.append(0)
-                    choices_c.append(0)
-                    choices_b.append(1)
+                trial = block["trial_" + str(trial_num)]
+                cardflip = trial["cardflip"][0].lower()
+                if prev_action != -1:
+                    if cardflip != prev_action:
+                        all_switches += 1
+                        if "probe_keypress" in trial:
+                            probe_switches += 1
+                prev_action = cardflip
 
-        goal_p = get_goals_from_choices(choices_p)
-        goal_c = get_goals_from_choices(choices_c)
-        goal_b = get_goals_from_choices(choices_b)
-
-        return goal_p, goal_c, goal_b
-
-    def get_goal_probes_array(self):
-        choices_p = []
-        choices_c = []
-        choices_b = []
-        choices_u = []
-        for block_num in range(len(self.blocks)):
-            for trial_num in range(self.num_trials):
-                trial = self.blocks[str(block_num)]['trial_' + str(trial_num)]
-                if trial['condition'] != 0:
-                    continue
-                if (trial_num + 1) % 3 == 0:
-                    if "probe_keypress" not in trial:
-                        choices_p.append(0)
-                        choices_c.append(0)
-                        choices_b.append(0)
-                        choices_u.append(0)
-                        continue
-                    probekey = trial["probe_keypress"]
-                    if probekey == 37:
-                        choices_p.append(1)
-                        choices_c.append(0)
-                        choices_b.append(0)
-                        choices_u.append(0)
-                    elif probekey == 38:
-                        choices_p.append(0)
-                        choices_c.append(1)
-                        choices_b.append(0)
-                        choices_u.append(0)
-                    elif probekey == 39:
-                        choices_p.append(0)
-                        choices_c.append(0)
-                        choices_b.append(1)
-                        choices_u.append(0)
-                    else:
-                        choices_p.append(0)
-                        choices_c.append(0)
-                        choices_b.append(0)
-                        choices_u.append(1)
-
-        return choices_p[:59], choices_c[:59], choices_b[:59]
+        return probe_switches / all_switches
 
     def get_goal_switches_across_blocks(self, block_num):
 
@@ -787,7 +664,7 @@ class SubjectMeasure:
             return 0
         targets = block['targets']
         switches = get_goal_switches(targets)
-        switches_sub= switches
+        switches_sub = switches
 
         return switches_sub
 
@@ -827,6 +704,105 @@ class SubjectMeasure:
 
         return switches_sub
 
+
+    def get_switches_after_completion(self, block_num):
+        switches = 0
+        counts = 0
+        if "reward_trials" not in self.blocks[str(block_num)]:
+            return -1
+        reward_trials = self.blocks[str(block_num)]['reward_trials']
+
+        for trial_ind in range(len(reward_trials)):
+            trial_num = reward_trials[trial_ind]
+            block = self.blocks[str(block_num)]
+            target = block['targets'][trial_ind]
+
+            max_token = ['p', 'c', 'b'][np.argmax([block['trial_' + str(trial_num)]['P'], block['trial_' + str(trial_num)]['C'], block['trial_' + str(trial_num)]['B']])]
+
+            if target != max_token:
+                continue
+
+            if trial_num < 29:
+                trial_a = self.blocks[str(block_num)]['trial_' + str(trial_num + 1)]
+            else:
+                if str(int(block_num) + 1) not in self.blocks:
+                    continue
+                trial_a = self.blocks[str(int(block_num) + 1)]['trial_' + str(0)]
+            cardselect = trial_a['cardselect'][0].lower()
+            counts += 1
+            if cardselect == target:
+                switches += 1
+
+        if counts == 0:
+            return np.nan
+        else:
+            return switches/ counts
+
+    def get_goal_valuation(self, measure):
+        max_prob = np.zeros(self.num_conditions)
+        max_slot = np.zeros(self.num_conditions)
+        other = np.zeros(self.num_conditions)
+        counts = np.zeros(self.num_conditions)
+        counts_all = np.zeros(self.num_conditions)
+        for block_num in range(len(self.blocks)):
+            for trial_num in range(self.num_trials):
+                trial = self.blocks[str(block_num)]['trial_' + str(trial_num)]
+                condition = trial['condition']
+                probs = [trial['P'], trial['C'], trial['B']]
+
+                slots = trial['slots_pre']
+                slots_arr = np.array([slots['p'], slots['c'], slots['b']])
+
+                if self.experiment != 4:
+                    targets = np.array([7, 7, 7])
+                else:
+                    targets = np.array([trial['P_T'], trial['C_T'], trial['B_T']])
+                max_prob_token = ['p', 'c', 'b'][np.argmin(targets / probs)]
+                progress = {'p': slots['p'] / targets[0],
+                            'c': slots['c'] / targets[1],
+                            'b': slots['b'] / targets[2]}
+                max_slot_token = ['p', 'c', 'b'][np.argmax(list(progress.values()))]
+                next_best_token = ['p', 'c', 'b'][
+                    find_second_highest_index(list(progress.values()))]
+
+                # if np.max(slots_arr) == 0:
+                #     continue
+
+                counts_all[condition] += 1
+
+                if measure == "maxprogress_dominant_diverge":
+                    if max_prob_token == max_slot_token:
+                        continue
+                    cardselect = trial['cardselect'][0].lower()
+                    counts[condition] += 1
+
+                    if cardselect == max_prob_token:
+                        max_prob[condition] += 1
+                    elif cardselect == max_slot_token:
+                        max_slot[condition] += 1
+                    else:
+                        other[condition] += 1
+                else:
+                    if max_prob_token != max_slot_token:
+                        continue
+                    cardselect = trial['cardselect'][0].lower()
+                    counts[condition] += 1
+
+                    if cardselect == max_prob_token:
+                        max_prob[condition] += 1
+                    elif cardselect == next_best_token:
+                        max_slot[condition] += 1
+                    else:
+                        other[condition] += 1
+
+
+        return max_prob / counts, max_slot / counts, other / counts, counts/ counts_all
+
+
+    def get_model_derived_retrospective_choice(self):
+        pass
+
+
     def get_individual_measure(self, measure_name):
 
         if measure_name == "performance":
@@ -839,14 +815,17 @@ class SubjectMeasure:
             measure = self.get_retro_valuation_per_count(half='second')
         elif measure_name == "obvious_choice_count":
             measure = self.get_retro_valuation_per_count(diverge=False)
-        elif measure_name == "goal_shifts":
-            measure = self.get_goal_actions_array()
-        elif measure_name == "goal_probe_shifts":
-            measure = self.get_goal_probes_array()
         elif measure_name == "goal_valuation":
             measure = self.get_goal_valuation()
-        elif measure_name == "chosen_action_rt":
-            measure = self.get_chosen_action_rt_per_progress()
+        elif measure_name == "retrospective_choice_model":
+            measure = self.get_model_derived_retrospective_choice()
+        elif measure_name == "goal_action_congruence":
+            measure = self.get_goal_action_congruence()
+        elif measure_name == "switches_around_probes":
+            measure = self.get_goal_switches_around_probes()
+        elif measure_name == "condition_action_blockwise":
+            measure = self.get_condition_max_action_blockwise()
+
 
         return measure
 
