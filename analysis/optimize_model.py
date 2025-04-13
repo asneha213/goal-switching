@@ -1,5 +1,6 @@
-from analysis.models import *
-from analysis.behavior import SubjectMeasure, SubjectMeasureRates
+
+from models import *
+from behavior import SubjectMeasure
 
 import numpy as np
 import optuna
@@ -14,7 +15,7 @@ class ModelOptimizer:
         self.episodes = episodes
 
     def get_measure_mean(self, params):
-        seeds = np.random.randint(0, 1000, 20)
+        seeds = np.random.randint(0, 1000, 10)
         model_results = []
         for seed in seeds:
             model = get_model(self.model_name, params)
@@ -56,11 +57,17 @@ class ModelOptimizer:
         return best_params, best_vals
 
     def get_model_optimal_params(self):
-        file_name = "results/sims/" + self.model_name + "_" + str(self.experiment) + "_optimal_params.pkl"
+        file_name = "results_latent/sims/" + self.model_name + "_" + str(self.experiment) + "_optimal_params.pkl"
         res = self.fit_optuna()
         with open(file_name, 'wb') as f:
-            pickle.dump(res, f)
+           pickle.dump(res, f)
         return res
+
+    def load_model_optimal_params(self):
+        file_name = "results/sims/" + self.model_name + "_" + str(self.experiment) + "_optimal_params.pkl"
+        with open(file_name, "rb") as f:
+            params = pickle.load(f)
+        return params
 
     def simulate_params(self, params=None, measure_name='num_goals', seed=100):
 
@@ -87,10 +94,7 @@ class ModelOptimizer:
         for seed in range(num_sims):
             model = get_model(self.model_name, params)
             model_res = model.run_model(experiment=self.experiment, seed=seed)
-            if self.experiment == 3:
-                measures = SubjectMeasureRates(subject_id=seed, experiment=self.experiment, model_res=model_res)
-            else:
-                measures = SubjectMeasure(subject_id=seed, experiment=self.experiment, model_res=model_res)
+            measures = SubjectMeasure(subject_id=seed, experiment=self.experiment, model_res=model_res)
             if measure_name in ['switches_actions', 'switches_probes', 'num_goals' ]:
                 sub_measure = measures.get_sum_measure_condition(measure_name)
             elif measure_name == "retro_value_count":
@@ -105,14 +109,20 @@ if __name__ == "__main__":
     experiment = 4
 
     model_name = "momentum"
-    model_name = "td_persistence"
+    model_name = "prospective"
+    #model_name = "td_persistence"
+    #model_name = "momentum"
     #model_name = "prospective"
     #model_name = "retrospective"
     #model_name = "prospective_rates"
     #model_name = "momentum_rates"
+    #model_name = "prospective_hyperbolic"
+
     res = ModelOptimizer(experiment, model_name).get_model_optimal_params()
     print(res)
 
+    #res = ModelOptimizer(experiment, model_name).load_model_optimal_params()
+    #print(res)
     #model_name = "rescorla"
     # model_name = "prospective_rates"
     #model_name = "momentum_rates"

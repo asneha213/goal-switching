@@ -15,8 +15,9 @@ def plot_comparative_bar_plot(ax, data, mean_values, std_dev_values, \
                               ylabel, ylim, x_pos=None, \
                               colors=None, bar_width=0.2,\
                               draw_data=True, legend=True,\
-                              label_font=12, tick_font=14, \
-                            legend_font=11, title_font=12):
+                              label_font=15, tick_font=15, \
+                            legend_font=15, title_font=16,\
+                              legend_loc='upper left', hatch=None):
 
     # Sample data
 
@@ -72,35 +73,39 @@ def plot_comparative_bar_plot(ax, data, mean_values, std_dev_values, \
                         data[i][k] + np.random.normal(0, np.min(data[i][k])/100, len(pos)), \
                         color=colors[i], marker='o', linestyle='None', markersize=2)
 
-        # Bar plot with error bars
+        if hatch:
+            hatch_val = hatch[i]
+        else:
+            hatch_val = None
+
         ax.bar(pos, mean_values[i], bar_width, yerr=std_dev_values[i], capsize=4, label=models[i], color=colors[i],
-               edgecolor='black', alpha=0.5)
+               edgecolor='black', alpha=0.5, hatch=hatch_val)
 
     # Set x-axis labels and tick positions
     ax.set_xticks(x_pos + (bar_width * (num_models - 1)) / 2)
-    ax.set_xticklabels(conditions, fontsize=tick_font)
+    ax.set_xticklabels(conditions, fontsize=tick_font, fontweight='bold')
 
     # Set y-axis label and title
-    ax.set_ylabel(ylabel, fontsize=label_font)
+    ax.set_ylabel(ylabel, fontsize=label_font, fontweight='bold')
     #ax.set_title(title)
 
     # Add a legend
     if legend:
-        ax.legend(fontsize=legend_font, loc='upper left')
+        ax.legend(fontsize=legend_font, loc=legend_loc)
 
     # Adjust y-axis limits
     ax.set_ylim(ylim)
 
     # Increase font size for xticks and yticks
 
-    ax.tick_params(axis='both', which='major', labelsize=11)
+    ax.tick_params(axis='both', which='major', labelsize=15)
 
     # Remove top and right spines
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
 
     # Customize tick parameters
-    ax.tick_params(axis='y', which='both', length=0)
+    #ax.tick_params(axis='y', which='both', length=5)
 
     # Add gridlines
     ax.grid(axis='y', linestyle='--', alpha=0.5)
@@ -110,7 +115,7 @@ def plot_comparative_bar_plot(ax, data, mean_values, std_dev_values, \
     #
     # ax.annotate(title, xy=(0.5, 1.05), xycoords='axes fraction',
     #                 fontsize=title_font, ha='center', bbox=title_box_props)
-    ax.set_title(title, fontsize=title_font)
+    ax.set_title(title, fontsize=title_font, fontweight='bold')
 
 
 
@@ -159,10 +164,10 @@ def plot_multiple_histograms(ax, measures, labels, xlabel, ylabel, title=None, l
         label = labels[i]
         sns.histplot(measure, kde=True, stat="density", linewidth=0, alpha=0.4, label=label, color=colors[i], ax=ax)
 
-    ax.set_xlabel(xlabel, fontsize=11)
-    ax.set_ylabel(ylabel, fontsize=11)
+    ax.set_xlabel(xlabel, fontsize=14, fontweight='bold')
+    ax.set_ylabel(ylabel, fontsize=14, fontweight='bold')
     if legend:
-        ax.legend(fontsize=9)
+        ax.legend(fontsize=11)
 
 
 if __name__ == "__main__":

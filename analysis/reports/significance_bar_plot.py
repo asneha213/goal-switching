@@ -21,8 +21,8 @@ def draw_significant_bar_plots(ax, data_points, model_names, \
     ax.xaxis.grid(True, linestyle='--', which='both', color='gray', alpha=0.7)
 
     # Labeling
-    ax.set_title(title, fontsize=12)
-    ax.tick_params(axis='both', which='major', labelsize=11)
+    ax.set_title(title, fontsize=15, fontweight='bold')
+    ax.tick_params(axis='both', which='major', labelsize=13)
 
     ax.set_xlim(min(fit_values) * 0.96, max(fit_values) * 1.04)
 
@@ -51,7 +51,7 @@ def draw_significant_bar_plots(ax, data_points, model_names, \
         x = max(bar1.get_width(), bar2.get_width()) + x_offset
         w = x / 250
         ax.plot([x, x + w, x + w, x], [y1, y1, y2, y2], lw=1.5, color='black')
-        ax.text(x + w, (y1 + y2) / 2, text, ha='left', va='center', color='black')
+        ax.text(x + w, (y1 + y2) / 2, text, ha='left', va='center', color='black', fontweight='bold')
 
 
     # Add significance markers

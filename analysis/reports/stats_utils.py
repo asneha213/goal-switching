@@ -46,7 +46,7 @@ def get_anova_conditions(experiment, measures):
         data_dict = {'subjects': list(range(num_subs)) * 3,
                      'condition': [0] * num_subs + [1] * num_subs + [2] * num_subs,
                      'measures': list(measures[:, 0]) + list(measures[:, 1]) + list(measures[:, 2])}
-    elif experiment == 2:
+    else:
         data_dict = {'subjects': list(range(num_subs)) * 2, 'condition': [0] * num_subs + [1] * num_subs,
                      'measures': list(measures[:, 0]) + list(measures[:, 1])}
     df = pd.DataFrame(data_dict)
