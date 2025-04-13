@@ -4,10 +4,12 @@ import pickle
 from matplotlib import pyplot as plt
 from matplotlib.gridspec import GridSpec
 
-import sys
 
 
-def norm_sims(seed):
+def normative_simulations(seed):
+    """
+    Normative simulations
+    """
 
     walk = True
     episodes, token_probs = generate_normative_episode_trials(num_episodes=18, num_trials=30, walk=walk, seed=seed)

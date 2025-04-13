@@ -25,17 +25,17 @@ def plot_bic_diff(ax, bics0, bics1, titles, ylim, title="", ylabel=True):
     ax.annotate(titles[0], xy=(0.35, 0.3), xycoords='axes fraction',
                 xytext=(0.35, 0.1), textcoords='axes fraction',
                 arrowprops=dict(facecolor='blue', edgecolor='blue', arrowstyle='<-', linewidth=2),
-                ha='center', va='center', color='blue')
+                ha='center', va='center', color='blue', fontsize=12)
 
     ax.annotate(titles[1], xy=(0.35, 0.5), xycoords='axes fraction',
                 xytext=(0.35, 0.8), textcoords='axes fraction',
                 arrowprops=dict(facecolor='red', edgecolor='red', arrowstyle='<-', linewidth=2),
-                ha='center', va='center', color='red')
+                ha='center', va='center', color='red', fontsize=12)
 
     # Set labels and title
-    ax.set_xlabel('subjects', fontsize=11)
+    ax.set_xlabel('subjects', fontsize=15, fontweight='bold')
     if ylabel is not None:
-        ax.set_ylabel('BIC difference', fontsize=11)
+        ax.set_ylabel('BIC difference', fontsize=15, fontweight='bold')
     #ax.set_title('Colored Rectangular Bars of a Sorted Array')
 
     # Add grid lines for better readability
@@ -48,7 +48,7 @@ def plot_bic_diff(ax, bics0, bics1, titles, ylim, title="", ylabel=True):
         title_box_props = dict(boxstyle='round,pad=0.3', facecolor='lightgray', alpha=0.5)
 
         ax.annotate(title, xy=(0.5, 1.15), xycoords='axes fraction',
-                    fontsize=10, ha='center', bbox=title_box_props)
+                    fontsize=15, ha='center', fontweight='bold')
 
 
 def plot_bics_diffs_two_experiments(axs, bics_exp1_m1, bics_exp1_m2, \
@@ -59,6 +59,7 @@ def plot_bics_diffs_two_experiments(axs, bics_exp1_m1, bics_exp1_m2, \
 
     if show:
         plt.tight_layout()
+        plt.savefig("figures/model_comparisons_individual.png")
         plt.show()
 
 
@@ -67,6 +68,11 @@ def plot_model_comparisions_individual(experiments=[1, 2], AIC=False, axs=None):
 
     bics_td_1, _ = get_model_BIC(experiment, 'momentum', AIC)
     bics_nt_1, _ = get_model_BIC(experiment, 'td_persistence', AIC)
+
+    subjects_mom = np.where(bics_td_1 - bics_nt_1 < 0)[0]
+    subjects_nt = np.where(bics_td_1 - bics_nt_1 > 0)[0]
+
+    print("Percentage of subjects with better fit by TD-momentum: ", len(subjects_mom) / (len(subjects_mom) + len(subjects_nt)))
 
     experiment = experiments[1]
 
@@ -101,24 +107,35 @@ def get_performance_difference_two_groups_instructions():
     subjects_mom = np.where(bics_td - bics_nt < 0)[0]
     subjects_nt = np.where(bics_td - bics_nt > 0)[0]
 
+    print("Percentage of subjects with better fit by TD-momentum: ", len(subjects_mom) / (len(subjects_mom) + len(subjects_nt)))
+
     retro_bias_instr = get_measure_experiment(experiment="instr_1", measure_name="retro_value_count", mode="measure")
     retro_bias_mom_mean = np.mean(np.nanmean(retro_bias_instr[subjects_mom], axis=0), axis=0)
     retro_bias_nt_mean = np.mean(np.nanmean(retro_bias_instr[subjects_nt], axis=0), axis=0)
 
-    fig = plt.figure(figsize=(8, 6))
+
+    performance_instr = get_measure_experiment(experiment="instr_1", measure_name="performance", mode="measure")
+    performance_mom = performance_instr[subjects_mom]
+    performance_nt = performance_instr[subjects_nt]
+    # get t-test for performance between the groups
+    ttest = pg.ttest(performance_mom, performance_nt, paired=False)
+    print(ttest)
+
+    fig = plt.figure(figsize=(6, 4))
     ax = fig.add_subplot(111)
 
-    ax.plot(range(7), retro_bias_mom_mean, label="explained by TD-Momentum", color="red")
-    ax.plot(range(7), retro_bias_nt_mean, label="explained by TD-Persistence", color="blue")
+    ax.plot(range(7), retro_bias_mom_mean, label="better fit by TD-momentum", color="red")
+    ax.plot(range(7), retro_bias_nt_mean, label="better fit by TD-persistence", color="blue")
 
-    ax.legend(fontsize=12)
-    ax.set_xlabel("progress: retrospective - prospective", fontsize=11)
+    ax.legend(fontsize=13)
+    ax.set_xlabel("max progress - dominant progress", fontsize=13)
     ylim = [0, 1]
     ax.set_ylim(ylim)
 
-    ax.set_ylabel("Retrospectively biased choice", fontsize=11)
+    ax.set_ylabel("Choosing maximum progress", fontsize=13)
 
     plt.tight_layout()
+    plt.savefig("figures/group_differences_td_persistence_momentum_exp_instr_1.png")
     plt.show()
 
 
