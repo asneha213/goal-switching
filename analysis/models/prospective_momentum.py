@@ -1,72 +1,85 @@
-from .prospective import Prospective
+from .model_latent import Model
 
 
-class ProspectiveMomentum(Prospective):
-    def __init__(self, params):
-        super().__init__(params)
+def ProspectiveMomentum(base_class_name):
+    if base_class_name == "model":
+        base_class = Model
 
-        self.alpha = params[0]
-        self.alpha_c = params[1]
-        self.beta_0 = params[2]
-        self.beta_g = params[3]
-        self.beta_a = params[4]
-        self.gamma = params[5]
-        self.alpha_e = params[6]
-        self.alpha_m = params[7]
+    class ProspectiveMomentumClass(base_class):
+        def __init__(self, params):
+            super().__init__(params)
 
-        self.prev_goal = ''
+            self.params = params
+            self.reset_card_probs()
+            self.mm = {
+                'p': 0,
+                'c': 0,
+                'b': 0
+            }
 
-        self.reset_card_probs()
+        def check_slot_status(self, slots):
+            if slots['p'] == self.targets['p']:
+                self.mm['p'] *= 0
+                return 1, 'p'
+            elif slots['c'] == self.targets['c']:
+                self.mm['c'] *= 0
+                return 1, 'c'
+            elif slots['b'] == self.targets['b']:
+                self.mm['b'] *= 0
+                return 1, 'b'
 
-        self.mm = {
-            'p': 0,
-            'c': 0,
-            'b': 0
-        }
+            return 0, -1
 
-    def check_slot_status(self, slots):
-        if slots['p'] == self.targets['p']:
-            self.mm['p']  *= 0
-            return 1, 'p'
-        elif slots['c'] == self.targets['c']:
-            self.mm['c'] *= 0
-            return 1, 'c'
-        elif slots['b'] == self.targets['b']:
-            self.mm['b'] *= 0
-            return 1, 'b'
+        def update_card_probs(self, card, flip):
+            self.alpha = self.params['alpha']
+            self.alpha_e = self.params['alpha_e']
+            self.alpha_m = self.params['alpha_m']
+            super().update_card_probs(card, flip)
+            card_type = card[0].lower()
 
-        return 0, -1
+            if flip != 'e':
+                rpe = 1 - self.M[card_type]
+                self.M[card_type] += self.alpha * (self.mm[card_type] + 1 - self.M[card_type])
+            else:
+                rpe = 0 - self.M[card_type]
+                self.M[card_type] += self.alpha_e * (self.mm[card_type] + 0 - self.M[card_type])
 
-    def update_card_probs(self, card, flip):
-        super().update_card_probs(card, flip)
-        card_type = card[0].lower()
+            self.mm[card_type] += self.alpha_m * (rpe - self.mm[card_type])
 
-        if flip != 'e':
-            rpe = 1 - self.M[card_type]
-            self.M[card_type] += self.alpha * (self.mm[card_type] + 1 - self.M[card_type])
-        else:
-            rpe = 0 - self.M[card_type]
-            self.M[card_type] += self.alpha_e * (self.mm[card_type] + 0 - self.M[card_type])
+        def reset_card_probs(self):
+            super().reset_card_probs()
 
-        self.mm[card_type] += self.alpha_m * (rpe - self.mm[card_type])
+            self.M = {
+                'p': 0.33,
+                'c': 0.33,
+                'b': 0.33
+            }
 
-    def calculate_goal_value_recursion(self, token, p, count, k):
-        if count == self.targets[token]:
-            return self.reward
-        if k > 10:
-            return 0
-        q = (p * self.gamma * self.calculate_goal_value_recursion(token, p, count + 1, k + 1)) \
-            / (1 - (1 - p) * self.gamma)
+        def calculate_goal_value_recursion(self, token, p, count, k):
+            self.gamma = self.params['gamma']
+            if count == self.targets[token]:
+                return self.reward
+            if k > 20:
+                return 0
 
-        return q
+            q = ( p * self.gamma * self.calculate_goal_value_recursion(token, p, count + 1, k+1) ) \
+                / (1 - (1 - p) * self.gamma)
 
-    def calculate_qvals_goals(self):
-        qvals = {}
+            return q
 
-        probs = [self.M['p'], self.M['c'], self.M['b']]
+        def calculate_qvals_goals(self):
+            qvals = {}
 
-        # calculate goal values
-        qvals['p'] = self.calculate_goal_value_recursion('p', probs[0], count=self.slots['p'], k=0)
-        qvals['c'] = self.calculate_goal_value_recursion('c', probs[1], count=self.slots['c'], k=0)
-        qvals['b'] = self.calculate_goal_value_recursion('b', probs[2], count=self.slots['b'], k=0)
-        return qvals
+            probs = [self.M['p'], self.M['c'], self.M['b']]
+
+            #calculate goal values
+            qvals['p'] = self.calculate_goal_value_recursion('p', probs[0], count=self.slots['p'], k=0)
+            qvals['c'] = self.calculate_goal_value_recursion('c', probs[1], count=self.slots['c'], k=0)
+            qvals['b'] = self.calculate_goal_value_recursion('b', probs[2], count=self.slots['b'], k=0)
+
+            #print(self.slots, qvals)
+
+            return qvals
+
+    return ProspectiveMomentumClass
+

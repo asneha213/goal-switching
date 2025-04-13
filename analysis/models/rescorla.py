@@ -1,17 +1,17 @@
-from .model import *
+from .model_just_goal import *
 from scipy.special import softmax
 import numpy as np
 
 
 
-class Rescorla(Model):
+class Rescorla(ModelJustGoal):
     def __init__(self, params):
         super().__init__(params)
 
-        self.alpha = params[0]
-        self.alpha_c = params[1]
-        self.beta_g = params[2]
-        self.beta_c = params[3]
+        self.alpha = params['alpha']
+        self.alpha_c = params['alpha_c']
+        self.beta_g = params['beta_g']
+        self.beta_c = params['beta_c']
 
         self.prev_goal = ''
 
@@ -39,6 +39,8 @@ class Rescorla(Model):
         action_vals = [self.beta_g * self.M[card[0].lower()] + self.beta_c * self.C[card[0].lower()] for card in cards]
         action_probs = softmax(action_vals)
         action = np.random.choice(range(3), p=action_probs)
+        action_token = cards[action][0].lower()
+        action_probs = {cards[i][0].lower(): action_probs[i] for i in range(3)}
         return action, action_probs
 
 
@@ -85,15 +87,17 @@ class Rescorla(Model):
             trial['slot_status'] = status
 
             count += 1
+            goal = cards[action][0].lower()
+            self.prev_goal = goal
 
             if status == 1:
                 self.slots[token] = 0
                 reward_trials.append(count)
                 goals.append(token)
 
+
             if (trial_num + 1) % 3 == 0:
                 goal = cards[action][0].lower()
-                self.prev_goal = goal
                 trial['probe_keypress'] = get_probe_from_goal(self.prev_goal)
 
             trials_res.append(trial)

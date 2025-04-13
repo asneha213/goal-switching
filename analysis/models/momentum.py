@@ -1,59 +1,51 @@
-from .model import Model
+from .model_latent import Model
 
+def Momentum(base_class_name):
+    if base_class_name == "model":
+        base_class = Model
 
-class Momentum(Model):
-    def __init__(self, params):
-        super().__init__(params)
+    class MomentumClass(base_class):
+        def __init__(self, params):
+            super().__init__(params)
+            params = self.params
+            self.reset_card_probs()
 
-        self.alpha = params[0]
-        self.alpha_c = params[1]
-        self.beta_0 = params[2]
-        self.beta_g = params[3]
-        self.beta_a = params[4]
-        self.gamma = params[5]
+        def reset_card_probs(self):
+            super().reset_card_probs()
+            self.w = {'p': 0.5, 'c': 0.5, 'b': 0.5}
+            self.b = {'p': 0.1, 'c': 0.1, 'b': 0.1}
 
-        self.prev_goal = ''
+        def update_card_probs(self, card, flip):
+            self.alpha = self.params['alpha']
+            self.gamma = self.params['gamma']
+            super().update_card_probs(card, flip)
+            token = card[0].lower()
+            if flip == 'e':
+                progress_new = self.slots[token] / self.targets[token]
+                progress = self.slots[token] / self.targets[token]
+            else:
+                progress_new = (self.slots[token] + 1) / self.targets[token]
+                progress = self.slots[token] / self.targets[token]
 
-        self.reset_card_probs()
+            delta = self.gamma * (self.w[token] * progress_new + self.b[token]) - self.w[token] * (
+                            progress) - self.b[token]
 
-    def reset_card_probs(self):
-        self.C = {
-            'p': 0.33,
-            'c': 0.33,
-            'b': 0.33
-        }
-        self.w = {'p': 0.5, 'c': 0.5, 'b': 0.5}
-        self.b = {'p': 0.1, 'c': 0.1, 'b': 0.1}
+            self.w[token] += self.alpha * delta * progress_new
+            self.b[token] += self.alpha * delta
 
-    def update_card_probs(self, card, flip):
-        super().update_card_probs(card, flip)
-        token = card[0].lower()
-        if flip == 'e':
-            progress_new = self.slots[token] / self.targets[token]
-            progress = self.slots[token] / self.targets[token]
-        else:
-            progress_new = (self.slots[token] + 1) / self.targets[token]
-            progress = self.slots[token] / self.targets[token]
+        def calculate_goal_value(self, token, count):
 
-        delta = self.gamma * (self.w[token] * progress_new + self.b[token]) - self.w[token] * (
-                        progress) - self.b[token]
+            progress = count / self.targets[token]
+            val = self.w[token] * progress + self.b[token]
 
-        self.w[token] += self.alpha * delta * progress_new
-        self.b[token] += self.alpha * delta
+            return val
 
-    def calculate_goal_value(self, token, count):
+        def calculate_qvals_goals(self):
+            q_vals = {'p': 0, 'c': 0, 'b': 0}
 
-        progress = count / self.targets[token]
-        val = self.w[token] * progress + self.b[token]
+            for token in ['p', 'c', 'b']:
+                q_vals[token] = self.calculate_goal_value(token, self.slots[token])
 
-        return val
+            return q_vals
 
-    def calculate_qvals_goals(self):
-        q_vals = {'p': 0, 'c': 0, 'b': 0}
-
-        for token in ['p', 'c', 'b']:
-            q_vals[token] = self.calculate_goal_value(token, self.slots[token])
-
-        return q_vals
-
-
+    return MomentumClass

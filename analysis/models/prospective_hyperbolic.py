@@ -1,50 +1,17 @@
 from .model_latent import Model
+import numpy as np
 
 
-def ProspectiveDLMomentum(base_class_name):
+def ProspectiveHyperbolic(base_class_name):
     if base_class_name == "model":
         base_class = Model
 
-    class ProspectiveDLMomentumClass(base_class):
+    class ProspectiveHyperbolicClass(base_class):
         def __init__(self, params):
             super().__init__(params)
 
             self.params = params
             self.reset_card_probs()
-            self.mm = {
-                'p': 0,
-                'c': 0,
-                'b': 0
-            }
-
-        def check_slot_status(self, slots):
-            if slots['p'] == self.targets['p']:
-                self.mm['p'] *= 0
-                return 1, 'p'
-            elif slots['c'] == self.targets['c']:
-                self.mm['c'] *= 0
-                return 1, 'c'
-            elif slots['b'] == self.targets['b']:
-                self.mm['b'] *= 0
-                return 1, 'b'
-
-            return 0, -1
-
-        def update_card_probs(self, card, flip):
-            self.alpha = self.params['alpha']
-            self.alpha_e = self.params['alpha_e']
-            self.alpha_m = self.params['alpha_m']
-            super().update_card_probs(card, flip)
-            card_type = card[0].lower()
-
-            if flip != 'e':
-                rpe = 1 - self.M[card_type]
-                self.M[card_type] += self.alpha * (self.mm[card_type] + 1 - self.M[card_type])
-            else:
-                rpe = 0 - self.M[card_type]
-                self.M[card_type] += self.alpha_e * (self.mm[card_type] + 0 - self.M[card_type])
-
-            self.mm[card_type] += self.alpha_m * (rpe - self.mm[card_type])
 
         def reset_card_probs(self):
             super().reset_card_probs()
@@ -54,6 +21,18 @@ def ProspectiveDLMomentum(base_class_name):
                 'c': 0.33,
                 'b': 0.33
             }
+
+        def update_card_probs(self, card, flip):
+            self.alpha = self.params['alpha']
+            super().update_card_probs(card, flip)
+
+            card_type = card[0].lower()
+
+            if flip != 'e':
+                self.M[card_type] +=  self.alpha * (1 - self.M[card_type])
+            else:
+                self.M[card_type] +=  self.alpha * (0 - self.M[card_type])
+
 
         def calculate_goal_value_recursion(self, token, p, count, k):
             self.gamma = self.params['gamma']
@@ -81,11 +60,23 @@ def ProspectiveDLMomentum(base_class_name):
 
             return qvals
 
-    return ProspectiveDLMomentumClass
+        def finish_goal(self, goal, p, count, k):
+            if k > 10:
+                return 15
+            if count == self.targets[goal]:
+                return k
+            else:
+                if np.random.random() < p:
+                    count += 1
+                return self.finish_goal(goal, p, count, k + 1)
 
+        def calculate_goal_value_recursion(self, token, p, count, k=0):
+            gamma = self.params['gamma']
+            delay = self.finish_goal(token, p, count, k)
+            discount = 1 / (1 + gamma * delay)
+            return discount * self.reward
 
-
-
+    return ProspectiveHyperbolicClass
 
 
 

@@ -3,50 +3,41 @@ from .momentum import Momentum
 from .td_persistence import TDPersistence
 from .hybrid import Hybrid
 from .retrospective import Retrospective
+from .prospective_hyperbolic import ProspectiveHyperbolic
 from .prospective_dl import ProspectiveDL
 from .prospective_momentum import ProspectiveMomentum
 from .prospective_dl_momentum import ProspectiveDLMomentum
 from .rescorla import Rescorla
-from .hybrid_mp import HybridMP
-
-from .prospective_rates import ProspectiveRates
-from .momentum_rates import MomentumRates
-
 
 import sys
 sys.path.append('../')
 
 import numpy as np
 
-from behavior import SubjectMeasure
+from behavior import *
 
 
 def get_model(model_name, params):
     if model_name == "prospective":
-        return Prospective(params)
+        return Prospective('model')(params)
     elif model_name == "hybrid":
-        return Hybrid(params)
+        return Hybrid('model')(params)
     elif model_name == "momentum":
-        return Momentum(params)
+        return Momentum('model')(params)
     elif model_name == "td_persistence":
-        return TDPersistence(params)
+        return TDPersistence('model')(params)
     elif model_name == "retrospective":
         return Retrospective(params)
     elif model_name == "prospective_dl":
-        return ProspectiveDL(params)
+        return ProspectiveDL('model')(params)
     elif model_name == "prospective_momentum":
-        return ProspectiveMomentum(params)
+        return ProspectiveMomentum('model')(params)
     elif model_name == "prospective_dl_momentum":
-        return ProspectiveDLMomentum(params)
+        return ProspectiveDLMomentum('model')(params)
+    elif model_name == "prospective_hyperbolic":
+        return ProspectiveHyperbolic('model')(params)
     elif model_name == "rescorla":
         return Rescorla(params)
-    elif model_name == "hybrid_mp":
-        return HybridMP(params)
-
-    elif model_name == "prospective_rates":
-        return ProspectiveRates(params)
-    elif model_name == "momentum_rates":
-        return MomentumRates(params)
 
     else:
         raise Exception("Model not found")
@@ -105,3 +96,39 @@ def get_simulations_subject(experiment, model_name, params):
     model_measures = SubjectMeasure(subject_id=-1, experiment=experiment, model_res=model_res)
     measures_sims = model_measures.get_measures_dict()
     return measures_sims
+
+
+def get_model_simulation_of_measure(experiment, model_name, measure_name, optimal=False, sims_per_subject=1):
+    subject_measure_simulations = []
+    subject_names = get_experiment_subjects(experiment)
+    for sim_num in range(sims_per_subject):
+        subject_measures_single_sim = []
+        for subject_num in range(len(subject_names)):
+            subject_id = subject_names[subject_num]
+            if not optimal:
+                with open('results_latent/' + model_name + "_" + str(experiment) + "/" + str(subject_id) + ".pkl", "rb") as f:
+                    model_fits = pickle.load(f)
+                params = model_fits['params']
+            else:
+                file_name = "results_latent/sims/" + model_name + "_" + str(experiment) + "_optimal_params.pkl"
+                with open(file_name, "rb") as f:
+                    params = pickle.load(f)
+                    params = params[0]
+
+            runmodel = RunModel(experiment, model_name, params)
+            model_res = runmodel.get_model_res()
+
+            subject_measures = SubjectMeasure(subject_id=subject_id, experiment=experiment, model_res=model_res)
+
+            if measure_name == "retro_value":
+                measure = subject_measures.get_mean_measure_condition(measure_name)
+            elif measure_name == "retro_value_count":
+                measure = subject_measures.get_individual_measure(measure_name)
+
+            subject_measures_single_sim.append(measure)
+        subject_measure_simulations.append(subject_measures_single_sim)
+
+    if sims_per_subject == 1:
+        return np.array(subject_measure_simulations)
+    else:
+        return subject_measure_simulations
