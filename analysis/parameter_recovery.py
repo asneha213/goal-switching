@@ -1,3 +1,5 @@
+import sys
+
 from fit_behavior import *
 from models import *
 
@@ -10,21 +12,44 @@ import pingouin as pg
 
 
 def get_sample_random(model_name):
-    alpha = np.random.uniform(0, 1)
-    alpha_c = np.random.uniform(0, 1)
-    beta_0 = np.random.uniform(-1, 1)
-    beta_g = np.random.uniform(0, 10)
-    beta_a = np.random.uniform(0, 10)
-    params = [alpha, alpha_c, beta_0, beta_g, beta_a]
 
     if (model_name == "prospective") or (model_name == "momentum"):
+        alpha = np.random.uniform(0, 1)
+        alpha_c = np.random.uniform(0, 1)
+        beta_0 = np.random.uniform(-1, 1)
+        beta_g = np.random.uniform(0, 10)
+        beta_a = np.random.uniform(0, 10)
         gamma = np.random.uniform(0.6, 1)
-        params = [alpha, alpha_c, beta_0, beta_g, beta_a, gamma]
+        params = {'alpha': alpha, 'alpha_c': alpha_c, 'beta_0': beta_0, 'beta_g': beta_g, 'beta_a': beta_a, 'gamma': gamma}
 
-    if model_name == "hybrid":
+    elif model_name == "hybrid":
+        alpha = np.random.uniform(0, 1)
+        alpha_c = np.random.uniform(0, 1)
+        beta_0 = np.random.uniform(-1, 1)
+        beta_g = np.random.uniform(0, 10)
+        beta_a = np.random.uniform(0, 10)
+        gamma = np.random.uniform(0.6, 1)
         gamma = np.random.uniform(0.6, 1)
         wa = np.random.uniform(0, 1)
-        params = [alpha, alpha_c, beta_0, beta_g, beta_a, gamma, wa]
+        params = {'alpha': alpha, 'alpha_c': alpha_c, 'beta_0': beta_0, 'beta_g': beta_g, 'beta_a': beta_a, 'gamma': gamma, 'wa': wa}
+
+    elif model_name == "td_persistence":
+        alpha = np.random.uniform(0, 1)
+        alpha_c = np.random.uniform(0, 1)
+        beta_0 = np.random.uniform(-1, 1)
+        beta_g = np.random.uniform(0, 10)
+        beta_a = np.random.uniform(0, 10)
+        params = {'alpha': alpha, 'alpha_c': alpha_c, 'beta_0': beta_0, 'beta_g': beta_g, 'beta_a': beta_a}
+
+    elif model_name == "momentum_just_goal" or model_name == "prospective_just_goal":
+        alpha = np.random.uniform(0, 1)
+        alpha_c = np.random.uniform(0, 1)
+        beta_c = np.random.uniform(0, 10)
+        beta_g = np.random.uniform(0, 10)
+        gamma = np.random.uniform(0.6, 1)
+        params = {'alpha': alpha, 'beta_c': beta_c, 'beta_g': beta_g, 'gamma': gamma, 'alpha_c': alpha_c}
+
+
 
     return params
 
@@ -37,10 +62,10 @@ def simulate_and_recover(experiment, model_name, params, seed):
     r_params = list(r_params.values())
 
     precovery = {}
-    precovery['original'] = params
+    precovery['original'] = list(params.values())
     precovery['recovered'] = r_params
 
-    file = open('results/param_recovery/' + model_name + "_" + str(experiment) + "_" + str(seed) + "_parameter_recovery.pkl", "wb")
+    file = open('results_latent/param_recovery/' + model_name + "_" + str(experiment) + "_" + str(seed) + "_parameter_recovery.pkl", "wb")
 
     pickle.dump(precovery, file)
     return r_params
@@ -67,7 +92,7 @@ def recover_model(experiment, model_name, seed):
         r_params, vals = fits.fit_optuna()
         modelfits[i] = vals
 
-    file = open('results/model_recovery/' + model_name + "_" + str(seed) + "_" + str(experiment) +  "_model_recovery.pkl",
+    file = open('results_latent/model_recovery/' + model_name + "_" + str(seed) + "_" + str(experiment) +  "_model_recovery.pkl",
                 "wb")
 
     pickle.dump(modelfits, file)
@@ -80,9 +105,9 @@ def plot_model_recovery(experiment):
 
     for i in range(len(models)):
         model_fname = models[i]
-        for seed in range(50):
+        for seed in range(100):
 
-            with open('results/model_recovery/' + model_fname + "_" + str(seed) + "_" + str(
+            with open('results_latent/model_recovery/' + model_fname + "_" + str(seed) + "_" + str(
                     experiment) + "_model_recovery.pkl",
                       "rb") as f:
 
@@ -116,6 +141,7 @@ def plot_model_recovery(experiment):
     axs[1].set_xlabel('Fit')
     axs[1].set_title('Pr(Simulated | Fit)', fontsize=10)
 
+    plt.savefig('figures/model_recovery.png')
 
     plt.show()
 
@@ -127,14 +153,20 @@ def plot_parameter_recovery():
 
     num_sims = 1000
     for i in range(num_sims):
-        with open('results/param_recovery/momentum_1_' + str(i) + "_parameter_recovery.pkl", "rb") as f:
-            precovery = pickle.load(f)
+        try:
+            with open('results_latent/param_recovery/momentum_1_' + str(i) + "_parameter_recovery.pkl", "rb") as f:
+                precovery = pickle.load(f)
+        except:
+            continue
+
 
         original.append(precovery['original'])
         recovered.append(precovery['recovered'])
 
     original = np.array(original)
     recovered = np.array(recovered)
+
+    print(original.shape)
 
     fig, axs = plt.subplots(1, 6, figsize=(14, 3))
 
@@ -166,12 +198,62 @@ def plot_parameter_recovery():
         axs[k].plot(x, y, color='red', label=f'R={r:.2f}')
         axs[k].legend(fontsize=10, loc='upper left')
 
+    # for k in range(5):
+    #     print(pg.corr(original[:, k], recovered[:, k], method="spearman"))
+    #     axs[k].scatter(original[:, k] , recovered[:, k], s=5)
+    #     axs[k].set_xlabel(param_names[k] + " - Original")
+    #     axs[k].set_ylabel(param_names[k] + " - Recovered")
+    #     if k==2 or k==3:
+    #         axs[k].set_ylim(-1, 11)
+    #         x = np.linspace(0, 10, 100)
+    #     elif k==4:
+    #         axs[k].set_ylim(0.55, 1.1)
+    #         x = np.linspace(0.5, 1, 100)
+    #     else:
+    #         axs[k].set_ylim(-0.1, 1.1)
+    #         x = np.linspace(0, 1, 100)
+    #     y = x
+    #
+    #     r = pg.corr(original[:, k], recovered[:, k], method="spearman")['r'].to_numpy()[0]
+    #
+    #     # Create a plot
+    #     axs[k].plot(x, y, color='red', label=f'R={r:.2f}')
+    #     axs[k].legend(fontsize=10, loc='upper left')
     plt.tight_layout()
+
+    plt.savefig('figures/parameter_recovery.png')
 
     plt.show()
 
 
 if __name__ == "__main__":
+    
+    machine = 'local'
+    #machine = 'server'
+    plot = False
+    plot = True
 
-    plot_parameter_recovery()
+    if machine == 'server':
+        seed = int(sys.argv[1])
+        experiment = 1
+        model_name = sys.argv[2]
+        param = int(sys.argv[3])
+    else:
+        seed = 1
+        model_name = "momentum"
+        model_name = "hybrid"
+        model_name = "prospective"
+        model_name = "td_persistence"
+        param = 1
+
+    if not plot:
+        if param == 1:
+           recover_params(experiment=1, model_name=model_name, seed=seed)
+        else:
+           recover_model(experiment=1, model_name=model_name, seed=seed)
+    else:
+        if param == 1:
+            plot_parameter_recovery()
+        else:
+            plot_model_recovery(experiment=1)
 

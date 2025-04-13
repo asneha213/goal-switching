@@ -73,7 +73,8 @@ class MomentumSim():
         for i in range(num_trials):
             flip = flips[i]
             self.update_params_prospective(flip)
-            qvals.append(self.calculate_goal_value_prospective())
+            #qvals.append(self.calculate_goal_value_prospective())
+            qvals.append(self.v)
             progress.append(self.prev_progress)
             if self.prev_progress >= 1:
                 break
