@@ -49,3 +49,26 @@ def get_card_shows(num_trials=36, shows=2):
         np.random.shuffle(cards)
         cards_task += cards
     return cards_task
+
+
+def flip_card_stochastic(probs, cards, card, execute):
+    card_id = ['p', 'c', 'b'].index(card.lower()[0])
+    cards_lower = [i.lower()[0] for i in cards]
+    if execute:
+        flip = np.random.choice([0, 1], p=[1 - probs[card_id], probs[card_id]])
+        card_flip = card
+    else:
+        card_ids = list(set([0, 1, 2]) - set([card_id]))
+        card_id_n = np.random.choice(card_ids, p=[0.5, 0.5])
+        card_flip_id = cards_lower.index(['p', 'c', 'b'][card_id_n])
+
+        flip = np.random.choice([0, 1], p=[1 - probs[card_id_n], probs[card_id_n]])
+        card_flip = cards[card_flip_id]
+    if flip:
+        token = card_flip.lower()[0]
+    else:
+        token = 'e'
+
+    return card_flip, token
+
+
